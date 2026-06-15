@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Politica de seguranca
+    url: https://github.com/cardososampaio/labiia_lex/blob/main/SECURITY.md
+    about: Use este canal para relato responsavel de vulnerabilidades.

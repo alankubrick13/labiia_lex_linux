@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;labiia_lex&gt; - Guia Geral</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1><span>📊</span> &lt;labiia_lex&gt;</h1>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Manual Principal</div>
+            <a href="geral.html" class="nav-link active"><span>📚</span> Geral</a>
+            <a href="analises.html" class="nav-link"><span>🔬</span> Análises</a>
+            <a href="matriz.html" class="nav-link"><span>📋</span> Matriz</a>
+            <a href="limpeza.html" class="nav-link"><span>🧹</span> Limpeza</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Suporte</div>
+            <a href="faq.html" class="nav-link"><span>❓</span> FAQ</a>
+            <a href="glossario.html" class="nav-link"><span>📖</span> Glossário</a>
+            <a href="sobre.html" class="nav-link"><span>ℹ️</span> Sobre</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Nesta Página</div>
+            <a href="#introducao" class="nav-link">Explorar</a>
+            <a href="#tutorial" class="nav-link">Passo a Passo</a>
+            <a href="#novo-109" class="nav-link">Novidades 1.0.9</a>
+            <a href="#analises-principais" class="nav-link">Análises</a>
+            <a href="#interface" class="nav-link">Interface</a>
+            <a href="#importacao" class="nav-link">Importação</a>
+            <a href="#iramuteq" class="nav-link">Formato .txt</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <span class="current">📚 Geral</span>
+        </div>
+
+        <div class="hero" id="top">
+            <h1>&lt;labiia_lex&gt; <span>v1.0.9</span></h1>
+            <p>Software para análise textual, lexicometria e visualização de dados. A interface atual prioriza um
+                fluxo direto: importar, normalizar quando necessário, escolher um grupo de análises e revisar os
+                resultados no centro da tela.</p>
+        </div>
+
+        <section id="introducao" class="section">
+            <h2><span>🚀</span> Introdução</h2>
+            <p>O <strong>&lt;labiia_lex&gt;</strong> converte textos em estatísticas, gráficos e redes interpretáveis. O foco
+                está em leitura exploratória e comparação textual sem exigir preparação externa complicada.</p>
+
+            <div class="topico-didatico">
+                <h4>Para quem é</h4>
+                <p>Pesquisadores de Ciências Sociais, Humanas, Saúde, Comunicação e áreas que trabalham com entrevistas,
+                    documentos, notícias ou outros corpora textuais.</p>
+            </div>
+        </section>
+
+        <section id="tutorial" class="section">
+            <h2><span>🎓</span> Tutorial: De Zero à Análise</h2>
+            <ol>
+                <li><strong>Importação:</strong> clique em <code>Importar</code> para carregar textos ou planilhas.</li>
+                <li><strong>Normalização:</strong> use <code>Normalizar</code> se precisar consolidar variações
+                    ortográficas.</li>
+                <li><strong>Escolha do grupo:</strong> navegue entre <code>Todos</code>, <code>Essenciais</code>,
+                    <code>Exploratórios</code>, <code>Semânticas</code> e <code>Extras</code>.
+                </li>
+                <li><strong>Análise:</strong> clique no teste desejado e acompanhe o resultado na área central.</li>
+                <li><strong>Revisão:</strong> use as abas de resultado para voltar a análises anteriores.</li>
+            </ol>
+            <div class="exemplo-pratico">
+                <strong>Dica:</strong> comece por <strong>Estatísticas</strong>, depois siga para <strong>CHD</strong>
+                e <strong>Similitude</strong> antes de avançar para as análises semânticas.
+            </div>
+        </section>
+
+        <section id="novo-109" class="section">
+            <h2><span>🧾</span> O que há de novo na versão 1.0.9</h2>
+            <p>A versão 1.0.9 consolida uma mudança de fluxo: <strong>importar continua rápido</strong>, e as etapas
+                mais cuidadosas ficam no botão <strong>Preparar corpus</strong>, depois da importação.</p>
+            <div class="features">
+                <div class="glossary-item" style="border-left: 3px solid var(--primary);">
+                    <div class="glossary-term">Preparação inteligente</div>
+                    <div class="glossary-definition">Detecta sugestões de expressões compostas de 2 ou 3 palavras,
+                        entidades nomeadas leves e contextos de uso, sempre com revisão manual antes de aplicar.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--secondary);">
+                    <div class="glossary-term">Auditoria da limpeza</div>
+                    <div class="glossary-definition">As decisões podem gerar CSVs de candidatos, decisões e contextos,
+                        facilitando explicar o que foi unido com underscore e por quê.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--accent);">
+                    <div class="glossary-term">Apoio interpretativo</div>
+                    <div class="glossary-definition">LDA e Mapa Temático exportam frases representativas reais do
+                        corpus. Elas ajudam a interpretar tópicos e comunidades sem gerar texto artificial.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="analises-principais" class="section">
+            <h2><span>🔬</span> Análises Principais</h2>
+            <p>O catálogo atual combina análises clássicas com ferramentas complementares. O conjunto abaixo reflete
+                o que está disponível na interface atual.</p>
+
+            <div class="features">
+                <div class="glossary-item" style="border-left: 3px solid var(--primary);">
+                    <div class="glossary-term">Estatísticas e Nuvem</div>
+                    <div class="glossary-definition">Leitura rápida do corpus, distribuição de formas e termos mais
+                        frequentes. A nuvem aceita formas visuais cardioid, diamond, square, triangle-forward,
+                        triangle-upright, pentagon e star.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--secondary);">
+                    <div class="glossary-term">CHD e CHD Temático</div>
+                    <div class="glossary-definition">Segmentação em classes lexicais e leitura temática dos vocabulários
+                        dominantes.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--accent);">
+                    <div class="glossary-term">Similitude e Rede Textual</div>
+                    <div class="glossary-definition">Grafo de coocorrência, centralidade lexical e leitura das relações
+                        entre termos.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--primary);">
+                    <div class="glossary-term">Semânticas</div>
+                    <div class="glossary-definition">YAKE, LDA, Heatmap Associativo e Mapa Temático para aprofundar
+                        tópicos, comunidades e relações lexicais.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--secondary);">
+                    <div class="glossary-term">Extras</div>
+                    <div class="glossary-definition">Concordância, Emoções, Keyness, Bigramas, Trigramas, Word Tree,
+                        Wordfish, X-Ray, Sentimento e Voyant Suite.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="interface" class="section">
+            <h2><span>🖥️</span> A Interface do &lt;labiia_lex&gt;</h2>
+            <div class="features">
+                <div class="glossary-item" style="border-left: 3px solid var(--primary);">
+                    <div class="glossary-term">Faixa superior</div>
+                    <div class="glossary-definition">Agrupa as ações principais e os conjuntos de testes disponíveis.
+                    </div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--secondary);">
+                    <div class="glossary-term">Painel lateral</div>
+                    <div class="glossary-definition">Mostra corpus, histórico ou contexto conforme a seção ativa.
+                    </div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--accent);">
+                    <div class="glossary-term">Resultados no centro</div>
+                    <div class="glossary-definition">Os gráficos e tabelas aparecem no painel principal e podem ser
+                        revisitados pelas abas abertas.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="importacao" class="section">
+            <h2><span>📥</span> Importador Universal</h2>
+            <p>O importador lê formatos comuns de trabalho acadêmico e prepara o corpus para análise local.</p>
+
+            <table>
+                <tr>
+                    <th>Formato</th>
+                    <th>Como funciona</th>
+                    <th>Vantagem</th>
+                </tr>
+                <tr>
+                    <td><strong>PDF</strong></td>
+                    <td>Extrai texto de arquivos digitais automaticamente.</td>
+                    <td>Dispensa conversões manuais.</td>
+                </tr>
+                <tr>
+                    <td><strong>DOCX</strong></td>
+                    <td>Lê documentos com suporte a formatação básica.</td>
+                    <td>Útil para entrevistas e relatórios.</td>
+                </tr>
+                <tr>
+                    <td><strong>XLSX / CSV</strong></td>
+                    <td>Transforma linhas de planilhas em UCIs.</td>
+                    <td>Bom para surveys e questionários.</td>
+                </tr>
+                <tr>
+                    <td><strong>TXT</strong></td>
+                    <td>Formato clássico com variáveis e blocos de texto.</td>
+                    <td>Controle direto sobre metadados.</td>
+                </tr>
+                <tr>
+                    <td><strong>ZIP</strong></td>
+                    <td>Agrupa vários arquivos automaticamente num corpus.</td>
+                    <td>Facilita lotes grandes de documentos.</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="iramuteq" class="section">
+            <h2><span>🔧</span> Formato estruturado (arquivo .txt)</h2>
+            <p>Para controle total sobre metadados e blocos documentais, o formato com variáveis e marcadores
+                delimitados continua sendo suportado.</p>
+
+            <details open>
+                <summary><span>📝</span> Estrutura do Arquivo</summary>
+                <div class="details-content">
+                    <pre><code>**** *genero_masculino *idade_jovem
+Este é o texto do primeiro sujeito da pesquisa.
+Pode ter várias linhas.
+
+**** *genero_feminino *idade_idoso
+Este é o texto do segundo sujeito, com variáveis diferentes.</code></pre>
+                </div>
+            </details>
+        </section>
+
+        <footer class="footer">
+            <p>&lt;labiia_lex&gt; v1.0.9 — Guia Geral</p>
+            <p><a href="#top">↑ Voltar ao topo</a></p>
+        </footer>
+    </main>
+
+    <a href="#top" class="back-to-top">↑</a>
+</body>
+
+</html>
+
+

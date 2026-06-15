@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;labiia_lex&gt; - Glossário</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .alphabet-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0 0;
+        }
+
+        .alphabet-strip a {
+            color: var(--text);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.35rem 0.75rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .alphabet-strip a:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .glossary-list {
+            display: grid;
+            gap: 1.1rem;
+            margin-top: 1.5rem;
+        }
+
+        .glossary-entry {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            border-radius: 14px;
+            padding: 1.15rem 1.35rem;
+        }
+
+        .glossary-entry h3 {
+            color: var(--primary);
+            font-size: 1.08rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .glossary-entry p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+            font-size: 0.98rem;
+        }
+
+        .letter-heading {
+            color: var(--secondary);
+            font-size: 1.6rem;
+            margin: 2.3rem 0 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.45rem;
+        }
+
+        .source-list li {
+            margin-bottom: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        .source-list a {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1><span>📖</span> Glossário</h1>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Navegação</div>
+            <a href="geral.html" class="nav-link"><span>📚</span> Geral</a>
+            <a href="analises.html" class="nav-link"><span>🔬</span> Análises</a>
+            <a href="matriz.html" class="nav-link"><span>📋</span> Matriz</a>
+            <a href="limpeza.html" class="nav-link"><span>🧹</span> Limpeza</a>
+            <a href="faq.html" class="nav-link"><span>❓</span> FAQ</a>
+            <a href="glossario.html" class="nav-link active"><span>📖</span> Glossário</a>
+            <a href="sobre.html" class="nav-link"><span>ℹ️</span> Sobre</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Nesta página</div>
+            <a href="#A" class="nav-link">A-C</a>
+            <a href="#D" class="nav-link">D-H</a>
+            <a href="#I" class="nav-link">I-N</a>
+            <a href="#P" class="nav-link">P-S</a>
+            <a href="#T" class="nav-link">T-X</a>
+            <a href="#fontes" class="nav-link">Fontes</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="geral.html">📚 Geral</a>
+            <span>›</span>
+            <span class="current">📖 Glossário de Termos</span>
+        </div>
+
+        <div class="hero" id="top">
+            <h1>📖 Glossário de Termos</h1>
+            <p>Um guia em ordem alfabética para entender os testes, gráficos e conceitos usados pelo &lt;labiia_lex&gt; sem exigir conhecimento prévio de estatística textual.</p>
+            <div class="alphabet-strip">
+                <a href="#A">A</a>
+                <a href="#B">B</a>
+                <a href="#C">C</a>
+                <a href="#D">D</a>
+                <a href="#E">E</a>
+                <a href="#F">F</a>
+                <a href="#G">G</a>
+                <a href="#H">H</a>
+                <a href="#I">I</a>
+                <a href="#K">K</a>
+                <a href="#L">L</a>
+                <a href="#M">M</a>
+                <a href="#N">N</a>
+                <a href="#P">P</a>
+                <a href="#Q">Q</a>
+                <a href="#R">R</a>
+                <a href="#S">S</a>
+                <a href="#T">T</a>
+                <a href="#U">U</a>
+                <a href="#V">V</a>
+                <a href="#W">W</a>
+                <a href="#X">X</a>
+                <a href="#Y">Y</a>
+            </div>
+        </div>
+
+        <section class="section">
+            <h2><span>🧭</span> Como usar este glossário</h2>
+            <p>Os termos abaixo combinam definições metodológicas e explicações práticas de interface. Quando um termo é também um teste do &lt;labiia_lex&gt;, a definição diz o que ele ajuda a observar e que tipo de cuidado interpretativo exige.</p>
+        </section>
+
+        <section class="section">
+            <h2 id="A" class="letter-heading">A</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Análise de correspondência em perfis da CHD</h3>
+                    <p>Visualização associada à CHD que ajuda a enxergar a posição relativa das classes e dos termos característicos. Ela deve ser lida como mapa exploratório de perfis, não como prova isolada de causalidade.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Análise exploratória</h3>
+                    <p>Conjunto de métodos usados para descobrir padrões, levantar hipóteses e orientar leituras posteriores. No &lt;labiia_lex&gt;, inclui ferramentas como Voyant Suite, Rede Textual, CCA e Emoções.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Análise semântica</h3>
+                    <p>Camada de testes voltada a tópicos, palavras-chave e relações de sentido. No &lt;labiia_lex&gt;, reúne YAKE, LDA, Heatmap Associativo e CHD Temático.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Associação lexical</h3>
+                    <p>Relação estatística ou contextual entre palavras que aparecem juntas ou de modo semelhante no corpus. Não significa necessariamente relação causal ou concordância interpretativa.</p>
+                </article>
+            </div>
+
+            <h2 id="B" class="letter-heading">B</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Beta em LDA</h3>
+                    <p>Probabilidade de cada termo dentro de cada tópico. Na prática, ajuda a responder: “quais palavras definem melhor este tópico?”.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Bigramas</h3>
+                    <p>Sequências de duas palavras consecutivas, como “política pública” ou “inteligência artificial”. O teste ajuda a encontrar expressões recorrentes que seriam perdidas se cada palavra fosse analisada separadamente.</p>
+                </article>
+            </div>
+
+            <h2 id="C" class="letter-heading">C</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>CCA</h3>
+                    <p>Análise exploratória de conceitos e coocorrências inspirada em fluxos textométricos. Ajuda a transformar padrões de termos em agrupamentos interpretáveis, mas exige leitura qualitativa do pesquisador.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>CHD</h3>
+                    <p>Classificação Hierárquica Descendente, método inspirado em Reinert. Divide segmentos textuais em classes lexicais segundo padrões de vocabulário, buscando grupos internamente homogêneos e diferentes entre si.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>CHD Temático</h3>
+                    <p>Teste semântico que cruza classes ou segmentos com tópicos/termos para apoiar leitura temática. É útil para comparar estruturas da CHD com outras formas de agrupamento lexical.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Classe lexical</h3>
+                    <p>Grupo de segmentos que compartilham vocabulário característico. Em CHD, uma classe costuma sugerir um tema, enquadramento ou “mundo lexical”, mas o nome final da classe deve ser dado pelo pesquisador.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Coocorrência</h3>
+                    <p>Ocorrência conjunta de termos dentro de uma mesma janela, segmento ou documento. É a base de redes, similitude, heatmaps e várias leituras de associação.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Concordância</h3>
+                    <p>Ferramenta para buscar uma palavra ou expressão e ver cada ocorrência no contexto. É especialmente útil para checar se um termo está sendo usado com o sentido esperado.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Corpus</h3>
+                    <p>Conjunto de textos analisados. Pode ser formado por entrevistas, artigos, discursos, respostas abertas, documentos institucionais ou qualquer coleção textual organizada.</p>
+                </article>
+            </div>
+
+            <h2 id="D" class="letter-heading">D</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Dendrograma</h3>
+                    <p>Gráfico em forma de árvore que mostra como a CHD separou os segmentos em classes. Cada divisão representa uma partição lexical relevante no processo de classificação.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Distribuição de frequências</h3>
+                    <p>Contagem de quantas vezes termos, documentos, classes ou categorias aparecem. É a base para estatísticas simples, nuvens, rankings e parte dos testes comparativos.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Documento</h3>
+                    <p>Unidade textual original importada pelo usuário. Pode equivaler a uma entrevista, uma notícia, uma resposta, um arquivo ou uma unidade de análise definida antes da importação.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>DTM ou matriz documento-termo</h3>
+                    <p>Tabela em que as linhas representam documentos e as colunas representam termos. As células guardam contagens ou pesos e servem de entrada para várias análises estatísticas.</p>
+                </article>
+            </div>
+
+            <h2 id="E" class="letter-heading">E</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Emoções</h3>
+                    <p>Análise baseada em léxicos afetivos, como o NRC Emotion Lexicon, para estimar associações de palavras com categorias como alegria, medo, raiva, tristeza, surpresa, nojo, confiança e antecipação.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Entidade nomeada leve</h3>
+                    <p>Nome próprio, sigla, instituição ou nome misto detectado por regras simples, sem dependência de modelos externos. Exemplos: STF, OpenAI, Supremo Tribunal Federal e Ministério da Saúde.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Estatísticas</h3>
+                    <p>Visão geral quantitativa do corpus: número de documentos, segmentos, formas, frequências, hapax e distribuições. É a primeira checagem para saber se o corpus está adequado.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Expressão composta</h3>
+                    <p>Sequência curta de palavras que funciona como uma unidade de sentido, como política pública, direitos humanos ou inteligência artificial. Na preparação do corpus, pode ser aplicada com underscore para preservar o conceito nas análises.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Exportação</h3>
+                    <p>Geração de arquivos de resultado, tabelas, imagens ou relatórios. Serve para auditoria, reaproveitamento em artigo/relatório e comparação com outras ferramentas.</p>
+                </article>
+            </div>
+
+            <h2 id="F" class="letter-heading">F</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Forma ativa</h3>
+                    <p>Palavra considerada informativa para a análise, geralmente substantivos, verbos, adjetivos e advérbios. São formas que ajudam a diferenciar temas e classes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Forma suplementar</h3>
+                    <p>Palavra mantida como contexto ou referência, mas que não pesa da mesma forma no cálculo principal. Artigos, preposições e conectivos costumam entrar nessa categoria.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Frase representativa</h3>
+                    <p>Trecho real do corpus selecionado como exemplo de um tópico ou comunidade temática. No &lt;labiia_lex&gt;, ela serve para apoiar interpretação; não é resumo gerado por IA.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Frequência</h3>
+                    <p>Número de ocorrências de um termo ou categoria. Frequência alta indica presença recorrente, mas não garante importância interpretativa sem contexto.</p>
+                </article>
+            </div>
+
+            <h2 id="G" class="letter-heading">G</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Gamma em LDA</h3>
+                    <p>Distribuição dos tópicos em cada documento. Na prática, indica quanto cada documento se aproxima de cada tópico estimado pelo modelo.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Grafo</h3>
+                    <p>Representação visual ou matemática de uma rede. Os pontos são nós e as linhas são arestas; em análise textual, nós costumam ser termos, documentos ou categorias.</p>
+                </article>
+            </div>
+
+            <h2 id="H" class="letter-heading">H</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Halos de similitude</h3>
+                    <p>Áreas coloridas usadas para destacar agrupamentos ou comunidades no grafo de similitude. Ajudam a ler blocos de termos relacionados, sem substituir a interpretação substantiva.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Hapax</h3>
+                    <p>Termo que aparece apenas uma vez no corpus. Muitos hapax podem indicar riqueza lexical, corpus pequeno, ruído ou necessidade de normalização.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Heatmap</h3>
+                    <p>Mapa de calor em que cores indicam intensidade. No &lt;labiia_lex&gt;, heatmaps ajudam a comparar associações entre termos, documentos, segmentos, classes ou tópicos.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Heatmap Associativo</h3>
+                    <p>Visualização semântica que mostra a força de associação entre termos. É útil para encontrar pares de palavras que aparecem próximos ou conectados de modo recorrente.</p>
+                </article>
+            </div>
+
+            <h2 id="I" class="letter-heading">I</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Importação</h3>
+                    <p>Etapa em que arquivos, pastas ou ZIPs entram no software. A qualidade da importação define se as análises posteriores terão segmentos, documentos e metadados coerentes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Importação estruturada</h3>
+                    <p>Modo de entrada em que o corpus já vem organizado com marcadores de documento e metadados. Ele ajuda a preservar variáveis analíticas e a reduzir retrabalho antes das análises.</p>
+                </article>
+            </div>
+
+            <h2 id="K" class="letter-heading">K</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Keyness</h3>
+                    <p>Medida de quão característica uma palavra é em um corpus ou subgrupo quando comparada a outro conjunto de referência. Ajuda a encontrar termos distintivos, não apenas frequentes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>KWIC</h3>
+                    <p>Sigla de “Key Word in Context”. É o formato clássico da concordância: a palavra buscada aparece no centro, cercada pelo texto antes e depois dela.</p>
+                </article>
+            </div>
+
+            <h2 id="L" class="letter-heading">L</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>LDA</h3>
+                    <p>Latent Dirichlet Allocation, modelo probabilístico de tópicos. Ele estima tópicos como distribuições de palavras e documentos como misturas desses tópicos.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Lematização</h3>
+                    <p>Redução de palavras ao lema, como “falando”, “falou” e “falaram” para “falar”. Ajuda a reduzir variação morfológica, mas pode apagar diferenças importantes se usada sem revisão.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Léxico</h3>
+                    <p>Conjunto de palavras de uma língua, corpus ou dicionário analítico. Em análises de emoção e sentimento, léxico também pode significar uma lista de palavras com categorias pré-atribuídas.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Log-likelihood</h3>
+                    <p>Estatística usada em comparação de frequências para identificar palavras mais características de um corpus ou grupo. É comum em análises de keyness.</p>
+                </article>
+            </div>
+
+            <h2 id="M" class="letter-heading">M</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Matriz de associação</h3>
+                    <p>Tabela que registra a força de associação entre pares de termos, documentos ou categorias. Pode ser visualizada como heatmap ou usada para gerar redes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Mapa estratégico de temas</h3>
+                    <p>Gráfico que posiciona comunidades temáticas segundo centralidade e densidade. Ajuda a distinguir temas centrais, periféricos, coesos ou emergentes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Mapa Temático</h3>
+                    <p>Análise que agrupa a rede lexical em comunidades e transforma esses grupos em campos temáticos interpretáveis, com termos centrais, mapa estratégico e frases representativas.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Mundo lexical</h3>
+                    <p>Expressão associada à tradição de Reinert para indicar um conjunto coerente de palavras e segmentos que compartilham um mesmo universo de sentido.</p>
+                </article>
+            </div>
+
+            <h2 id="N" class="letter-heading">N</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>N-grama</h3>
+                    <p>Sequência de N palavras. Bigramas têm duas palavras, trigramas têm três. N-gramas ajudam a recuperar expressões compostas e padrões formulaicos.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Nó</h3>
+                    <p>Ponto de uma rede. Em grafos textuais, um nó costuma representar uma palavra, expressão, documento, categoria ou classe.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Normalização</h3>
+                    <p>Padronização de formas equivalentes, como grafias variantes, acentos, maiúsculas/minúsculas ou termos muito próximos. Deve ser feita com cuidado para não unir sentidos diferentes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Nuvem de palavras</h3>
+                    <p>Visualização em que termos mais frequentes aparecem maiores. É útil para uma leitura rápida, mas não mostra contexto, associação nem diferença estatística entre grupos.</p>
+                </article>
+            </div>
+
+            <h2 id="P" class="letter-heading">P</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Painel de resultados</h3>
+                    <p>Área central do &lt;labiia_lex&gt; em que gráficos, tabelas e relatórios aparecem. As abas permitem comparar execuções sem perder resultados anteriores.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Perplexidade</h3>
+                    <p>Métrica usada em modelos de tópicos para avaliar quão bem o modelo prevê os dados. Em LDA, pode ajudar a comparar valores de k, mas não substitui interpretação humana dos tópicos.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Polaridade</h3>
+                    <p>Orientação geral de sentimento, normalmente positiva, negativa ou neutra. É diferente de emoção: um texto pode ser negativo por medo, raiva ou tristeza, por exemplo.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Preparar corpus</h3>
+                    <p>Etapa opcional posterior à importação. Pode aplicar limpeza adicional, sugerir expressões compostas, detectar entidades nomeadas leves e gravar auditoria das decisões antes das análises.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Pré-processamento</h3>
+                    <p>Conjunto de etapas antes da análise: limpeza, segmentação, remoção de ruído, normalização e seleção de termos. Bons resultados dependem muito dessa etapa.</p>
+                </article>
+            </div>
+
+            <h2 id="Q" class="letter-heading">Q</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Qui-quadrado</h3>
+                    <p>Teste estatístico usado para avaliar associação entre categorias. Em análise textual, costuma indicar se uma palavra aparece de forma especialmente associada a uma classe ou grupo.</p>
+                </article>
+            </div>
+
+            <h2 id="R" class="letter-heading">R</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Rede Textual</h3>
+                    <p>Análise que representa relações entre palavras ou expressões como uma rede. Ajuda a enxergar estrutura, proximidades, agrupamentos e termos conectores no corpus.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Relatório</h3>
+                    <p>Saída narrativa ou técnica que reúne parâmetros, resultados principais, artefatos e observações. É útil para documentar decisões e tornar a análise auditável.</p>
+                </article>
+            </div>
+
+            <h2 id="S" class="letter-heading">S</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Segmento</h3>
+                    <p>Trecho menor derivado de um documento. Em análises como CHD, os segmentos são comparados entre si para formar classes lexicais.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Sentimento</h3>
+                    <p>Análise da orientação afetiva geral do texto. Pode indicar tendência positiva/negativa, mas deve ser lida com cautela em textos irônicos, técnicos ou muito contextuais.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Similitude</h3>
+                    <p>Análise de coocorrência que gera uma rede para mostrar relações fortes entre termos. Ajuda a visualizar núcleos de vocabulário e caminhos de associação lexical.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Stopwords</h3>
+                    <p>Palavras muito comuns, como artigos e preposições, que frequentemente são removidas para reduzir ruído. A remoção deve respeitar o objetivo da pesquisa.</p>
+                </article>
+            </div>
+
+            <h2 id="T" class="letter-heading">T</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Tamanho da UCE</h3>
+                    <p>Número aproximado de palavras por segmento. Segmentos muito curtos podem fragmentar o sentido; segmentos muito longos podem misturar temas diferentes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Termo</h3>
+                    <p>Unidade lexical analisada pelo software. Pode ser uma palavra simples, uma forma normalizada ou uma expressão composta, dependendo do teste.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Tópico em LDA</h3>
+                    <p>Grupo probabilístico de palavras que tendem a aparecer em documentos semelhantes. O tópico não vem nomeado: o pesquisador interpreta e nomeia a partir dos termos mais prováveis.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Trigramas</h3>
+                    <p>Sequências de três palavras consecutivas. Ajudam a identificar expressões mais específicas, como “política de saúde” ou “análise de discurso”.</p>
+                </article>
+            </div>
+
+            <h2 id="U" class="letter-heading">U</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>UCI</h3>
+                    <p>Unidade de Contexto Inicial. Normalmente corresponde ao documento original ou a uma unidade maior definida pelo pesquisador antes da segmentação.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>UCE</h3>
+                    <p>Unidade de Contexto Elementar. É o segmento menor usado em análises como CHD para comparar vocabulários e formar classes.</p>
+                </article>
+            </div>
+
+            <h2 id="V" class="letter-heading">V</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>VEM</h3>
+                    <p>Variational Expectation-Maximization, método de estimação usado em LDA. É uma forma eficiente de aproximar as distribuições de tópicos em corpora textuais.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Vocabulário</h3>
+                    <p>Conjunto de termos que permanecem disponíveis para análise após importação, limpeza e filtros. Mudanças no vocabulário alteram os resultados dos testes.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Voyant Suite</h3>
+                    <p>Conjunto de visualizações inspiradas no Voyant Tools, como nuvens, tendências, termos por documento, contextos e coocorrências. Serve para exploração rápida e leitura complementar.</p>
+                </article>
+            </div>
+
+            <h2 id="W" class="letter-heading">W</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>Word Tree</h3>
+                    <p>Visualização que mostra como frases se ramificam antes ou depois de uma palavra escolhida. Ajuda a ler padrões de formulação e contextos repetidos.</p>
+                </article>
+                <article class="glossary-entry">
+                    <h3>Wordfish</h3>
+                    <p>Modelo de escalonamento textual usado para posicionar documentos em uma dimensão latente com base em frequências de palavras. É comum em análise política, mas exige teoria para interpretar o eixo.</p>
+                </article>
+            </div>
+
+            <h2 id="X" class="letter-heading">X</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>X-Ray</h3>
+                    <p>Ferramenta exploratória para examinar o corpus em camadas, destacando padrões, termos ou relações que merecem inspeção. Funciona melhor como diagnóstico e apoio interpretativo.</p>
+                </article>
+            </div>
+
+            <h2 id="Y" class="letter-heading">Y</h2>
+            <div class="glossary-list">
+                <article class="glossary-entry">
+                    <h3>YAKE</h3>
+                    <p>Método não supervisionado de extração de palavras-chave. Usa características locais do texto para ranquear termos importantes sem precisar de corpus de treinamento.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="fontes" class="section">
+            <h2><span>🔎</span> Fontes consultadas</h2>
+            <p>As definições foram adaptadas para linguagem didática e para o funcionamento do &lt;labiia_lex&gt;. Referências principais:</p>
+            <ul class="source-list">
+                <li><a href="https://www.jmlr.org/papers/v3/blei03a.html">Blei, Ng e Jordan (2003), Latent Dirichlet Allocation</a></li>
+                <li><a href="https://docs.voyant-tools.org/docs/tutorial-termsberry.html">Voyant Tools, documentação do TermsBerry</a></li>
+                <li><a href="https://voyant-tools.org/docs/tutorial-cirrus.html">Voyant Tools, documentação do Cirrus</a></li>
+                <li><a href="https://github.com/LIAAD/yake">YAKE, implementação e descrição metodológica</a></li>
+                <li><a href="https://www.saifmohammad.com/WebPages/AccessResource.htm">NRC Emotion Lexicon, Saif Mohammad e Peter Turney</a></li>
+                <li><a href="https://sites.temple.edu/tudsc/?p=4277">Wordfish para escalonamento textual</a></li>
+                <li><a href="https://www.refsmmat.com/notebooks/keyness.html">Keyness em linguística de corpus</a></li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>&lt;labiia_lex&gt; v1.0.9 — Glossário Técnico</p>
+        </footer>
+    </main>
+
+    <a href="#top" class="back-to-top">↑</a>
+</body>
+
+</html>
+
+

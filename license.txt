@@ -1,0 +1,42 @@
+<labiia_lex> 1.0.9
+
+Licenca do projeto: GNU General Public License v3.0 ou qualquer versao posterior.
+O texto integral da licenca acompanha o repositorio em `LICENSE`.
+
+Este texto foi mantido no repositorio como base para a tela inicial do wizard de
+instalacao do Windows.
+
+<labiia_lex> 1.0.9 consolida a importacao rapida e a preparacao inteligente do
+corpus, com expressoes compostas auditaveis, entidades nomeadas leves e novos
+apoios interpretativos para LDA e mapas tematicos.
+
+Este software foi desenvolvido pelo professor Rafael Cardoso Sampaio, professor
+do departamento de Ciencia Politica da Universidade Federal de Pernambuco, e
+coordenador do <labiia_lab> (Laboratorio Interdisciplinar de Inteligencia
+Artificial para Metodos, Democracia e Sociedade).
+
+O software foi todo desenvolvido por agentes de IA e pode conter erros. Os
+agentes utilizados foram ChatGPT Codex (v. 5.2, 5.3, 5.4, 5.5), Claude Code
+Opus (v. 4.5, 4.6, 4.7, 4.8), Claude Sonnet 4.6, Antigravity (Gemini 3.1 Pro)
+e Kimi (2.5 e 2.6).
+
+O projeto tambem incorpora referencias, testes, praticas e bibliotecas abertas
+de analise textual, visualizacao e limpeza de dados, incluindo contribuicoes de
+ecossistemas como Voyant Tools, Lexos, Textometrica, Syuzhet, clean-text,
+OpenRefine e Tall.
+
+Este software contou com os codigos e colaboracao direta de Anderson Henrique
+(USP), Dalson Figueiredo (UFPE), Ian Batista (Carter Center), Leonardo
+Nascimento (LabUFBA) e Nilton Sainz (UFPR).
+
+O desenvolvimento tambem contou com a ajuda de colaboradores do <labiia_lab>.
+
+Duvidas, sugestoes e relato de problemas podem ser enviados por email para:
+cardososampaio@gmail.com
+
+Este projeto gastou cerca de 200 horas de investimento de tempo para ser
+realizado e seis meses de assinatura dos agentes de IA.
+
+O objetivo do software nao e desincentivar que as pessoas aprendam linguagens de
+programacao como Python e R, mas mostrar que ha muitas possibilidades para se
+aventurar.

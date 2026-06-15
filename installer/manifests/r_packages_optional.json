@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "group": "optional",
+  "min_r_version": "4.0.0",
+  "max_r_version": null,
+  "packages": [
+    "tcltk"
+  ]
+}

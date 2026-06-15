@@ -1,0 +1,23 @@
+**** *loc_cidade *sexo_m *idade_30
+Eu acho que a politica publica deveria focar mais na educacao das criancas. A inteligencia artificial pode ajudar muito nesse processo de aprendizagem.
+
+**** *loc_campo *sexo_f *idade_45
+No campo a situacao e diferente. Precisamos de mais investimento em agricultura familiar e desenvolvimento rural sustentavel.
+
+**** *loc_cidade *sexo_f *idade_25
+Os jovens urbanos querem qualidade de vida e oportunidades de emprego. O mercado de trabalho esta cada vez mais competitivo.
+
+**** *loc_cidade *sexo_m *idade_55
+A experiencia mostra que precisamos de planejamento a longo prazo. As politicas publicas devem ser continuadas independente do governo.
+
+**** *loc_campo *sexo_m *idade_40
+A tecnologia chegou no campo e esta transformando a producao agricola. Precisamos de capacitacao para os produtores rurais.
+
+**** *loc_cidade *sexo_f *idade_35
+A saude publica e uma prioridade. Hospitais publicos precisam de mais recursos e profissionais qualificados.
+
+**** *loc_campo *sexo_f *idade_60
+Minha vida toda foi no campo. As tradicoes e a cultura rural precisam ser preservadas para as futuras geracoes.
+
+**** *loc_cidade *sexo_m *idade_20
+Sou estudante universitario e vejo muitos problemas na educacao superior. Precisamos de mais pesquisa e inovacao.

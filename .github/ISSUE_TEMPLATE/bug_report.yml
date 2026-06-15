@@ -1,0 +1,45 @@
+name: Relatar bug
+description: Reporte um erro reproduzivel no labiia_lex
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema
+      description: Descreva o erro de forma objetiva.
+      placeholder: O que aconteceu?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Como reproduzir
+      description: Liste os passos em ordem.
+      placeholder: |
+        1. Abrir...
+        2. Importar...
+        3. Clicar em...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versao do labiia_lex
+      placeholder: 1.0.9
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Informe Windows e versao do R.
+      placeholder: Windows 11 64-bit, R 4.x
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidencias adicionais
+      description: Logs, prints, corpus minimo ou mensagens de erro.

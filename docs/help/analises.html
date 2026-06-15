@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;labiia_lex&gt; - Guia de Análises</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1><span>🔬</span> Análises</h1>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Navegação</div>
+            <a href="geral.html" class="nav-link"><span>📚</span> Geral</a>
+            <a href="analises.html" class="nav-link active"><span>🔬</span> Análises</a>
+            <a href="matriz.html" class="nav-link"><span>📋</span> Matriz</a>
+            <a href="limpeza.html" class="nav-link"><span>🧹</span> Limpeza</a>
+            <a href="faq.html" class="nav-link"><span>❓</span> FAQ</a>
+            <a href="glossario.html" class="nav-link"><span>📖</span> Glossário</a>
+            <a href="sobre.html" class="nav-link"><span>ℹ️</span> Sobre</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Nesta Página</div>
+            <a href="#stats" class="nav-link">Estatísticas</a>
+            <a href="#cloud" class="nav-link">Nuvem</a>
+            <a href="#chd" class="nav-link">CHD</a>
+            <a href="#simi" class="nav-link">Similitude</a>
+            <a href="#semanticas" class="nav-link">Semânticas</a>
+            <a href="#lda" class="nav-link">LDA 1.0.9</a>
+            <a href="#mapa-tematico" class="nav-link">Mapa Temático</a>
+            <a href="#extras" class="nav-link">Extras</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="geral.html">📚 Geral</a>
+            <span>›</span>
+            <span class="current">🔬 Análises Textuais</span>
+        </div>
+
+        <div class="hero" id="top">
+            <h1>🔬 Guia de Análises</h1>
+            <p>As análises abaixo formam o conjunto ativo do &lt;labiia_lex&gt;. Esta documentação foi alinhada para mostrar
+                apenas os testes e visualizações que ainda existem na interface atual.</p>
+        </div>
+
+        <section id="stats" class="section">
+            <h2><span>📊</span> Estatísticas Descritivas</h2>
+            <p>Resumo rápido do corpus: quantidade de documentos, segmentos, formas, formas distintas e termos mais
+                frequentes.</p>
+            <div class="topico-didatico">
+                <h4>Quando usar</h4>
+                <p>É a primeira leitura do corpus. Ajuda a entender tamanho, cobertura lexical e distribuição geral.</p>
+            </div>
+        </section>
+
+        <section id="cloud" class="section">
+            <h2><span>☁️</span> Nuvem de Palavras</h2>
+            <p>Destaca os termos mais frequentes por tamanho visual. É útil para leitura rápida do vocabulário
+                dominante.</p>
+        </section>
+
+        <section id="chd" class="section">
+            <h2><span>🌳</span> CHD (Classificação Hierárquica Descendente)</h2>
+            <p>Organiza o corpus em classes lexicais com vocabulários próximos entre si. É uma das leituras centrais do
+                projeto para identificar núcleos temáticos.</p>
+            <div class="topico-didatico">
+                <h4>Leitura prática</h4>
+                <p>Cada classe reúne palavras que aparecem juntas com maior regularidade. O resultado ajuda a separar
+                    grandes temas do corpus.</p>
+            </div>
+        </section>
+
+        <section id="simi" class="section">
+            <h2><span>🔗</span> Similitude</h2>
+            <p>Mede coocorrência entre palavras e mostra a estrutura relacional do texto por meio de grafos e
+                centralidades.</p>
+            <div class="exemplo-pratico">
+                <strong>Leitura prática:</strong> quanto mais forte a conexão, mais frequentemente as palavras
+                apareceram juntas no mesmo contexto.
+            </div>
+        </section>
+
+        <section id="semanticas" class="section">
+            <h2><span>🧠</span> Análises Semânticas</h2>
+            <p>Essas análises complementam CHD e Similitude com foco em chaves lexicais, tópicos e relações
+                associativas.</p>
+            <ul>
+                <li><strong>YAKE:</strong> extração automática de palavras-chave e expressões relevantes.</li>
+                <li><strong>LDA:</strong> modelagem de tópicos com diagnóstico de K, estabilidade e frases
+                    representativas reais do corpus.</li>
+                <li><strong>Heatmap Associativo:</strong> visualiza associações entre termos e segmentos.</li>
+                <li><strong>Mapa Temático:</strong> transforma comunidades lexicais em campos temáticos com
+                    centralidade, densidade e frases de apoio.</li>
+                <li><strong>CHD Temático:</strong> variação temática da classificação hierárquica.</li>
+            </ul>
+        </section>
+
+        <section id="lda" class="section">
+            <h2><span>🧪</span> LDA com diagnóstico interpretativo</h2>
+            <p>O motor principal do LDA continua sendo usado para estimar tópicos, mas a versão 1.0.9 acrescenta
+                apoios para escolher e interpretar melhor o resultado.</p>
+            <div class="features">
+                <div class="glossary-item" style="border-left: 3px solid var(--primary);">
+                    <div class="glossary-term">Escolha de K</div>
+                    <div class="glossary-definition">O usuário escolhe o número de tópicos. O tuning de K gera sinais
+                        de qualidade para comparar alternativas, mas não decide automaticamente.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--secondary);">
+                    <div class="glossary-term">Estabilidade</div>
+                    <div class="glossary-definition">O diagnóstico avançado pode repetir o LDA com seeds diferentes
+                        para indicar se os tópicos principais continuam parecidos.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--accent);">
+                    <div class="glossary-term">Frases representativas</div>
+                    <div class="glossary-definition">O LDA exporta trechos reais do corpus próximos de cada tópico.
+                        Use essas frases para nomear tópicos com mais segurança.</div>
+                </div>
+            </div>
+            <div class="exemplo-pratico">
+                <strong>Dica:</strong> antes de rodar LDA, considere usar <strong>Preparar corpus</strong> para unir
+                expressões como <em>inteligência_artificial</em> ou <em>política_pública</em>. Isso preserva conceitos
+                compostos no vocabulário do modelo.
+            </div>
+        </section>
+
+        <section id="mapa-tematico" class="section">
+            <h2><span>🧭</span> Mapa Temático</h2>
+            <p>O Mapa Temático parte de uma rede lexical e agrupa termos em comunidades. A leitura final mostra
+                campos temáticos, termos centrais e posição estratégica de cada comunidade.</p>
+            <p>Quando o corpus foi preparado com expressões compostas aceitas, o mapa usa essas expressões como
+                sinal principal. Quando não há expressões preparadas, ele ainda pode rodar com termos filtrados do
+                corpus e registra essa condição no resumo da análise.</p>
+            <ul>
+                <li><strong>Centralidade:</strong> indica quanto uma comunidade se conecta ao restante do corpus.</li>
+                <li><strong>Densidade:</strong> indica quanto os termos da comunidade se conectam entre si.</li>
+                <li><strong>Frases representativas:</strong> trazem exemplos reais do corpus para apoiar a leitura de
+                    cada comunidade.</li>
+            </ul>
+            <p>Na prática, temas com alta centralidade tendem a organizar o corpus; temas periféricos podem ser
+                específicos, emergentes ou pouco conectados. A interpretação depende da pergunta de pesquisa.</p>
+        </section>
+
+        <section id="extras" class="section">
+            <h2><span>🚀</span> Ferramentas Extras</h2>
+            <p>O &lt;labiia_lex&gt; mantém um conjunto de visualizações e análises complementares para navegação e comparação
+                textual:</p>
+            <ul>
+                <li><strong>Concordância (KWIC):</strong> palavra em contexto.</li>
+                <li><strong>Emoções:</strong> polaridades e emoções básicas com base em léxicos de sentimento.</li>
+                <li><strong>Rede Textual:</strong> grafo de coocorrência textual, preservado como análise ativa.</li>
+                <li><strong>Keyness:</strong> comparação entre corpora para destacar termos distintivos.</li>
+                <li><strong>Bigramas e Trigramas:</strong> relações frequenciais entre termos contíguos.</li>
+                <li><strong>Word Tree:</strong> expansão contextual de um termo central.</li>
+                <li><strong>Wordfish:</strong> escalonamento ideológico unidimensional.</li>
+                <li><strong>X-Ray:</strong> leitura visual da distribuição dos termos ao longo do texto.</li>
+                <li><strong>Voyant Suite:</strong> conjunto de painéis inspirados no ecossistema Voyant.</li>
+                <li><strong>Sentimento:</strong> leitura de polaridade textual.</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>&lt;labiia_lex&gt; v1.0.9 — Guia de Análises Textuais</p>
+            <p><a href="#top">↑ Voltar ao topo</a></p>
+        </footer>
+    </main>
+
+    <a href="#top" class="back-to-top">↑</a>
+</body>
+
+</html>
+
+

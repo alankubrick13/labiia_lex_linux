@@ -1,0 +1,25 @@
+name: Sugerir melhoria
+description: Proponha uma melhoria de produto, UX, analise ou documentacao
+title: "[Ideia]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Necessidade
+      description: Qual problema ou necessidade motiva a sugestao?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposta
+      description: Descreva a melhoria desejada.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impacto esperado
+      description: Quem se beneficia e como?

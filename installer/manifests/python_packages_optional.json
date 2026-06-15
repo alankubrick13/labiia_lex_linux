@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "group": "optional",
+  "min_python_version": "3.10",
+  "packages": [
+    "fa2-modified>=0.3.0"
+  ],
+  "spacy_models": [
+    "pt_core_news_sm"
+  ]
+}

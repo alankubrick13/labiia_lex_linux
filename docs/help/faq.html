@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;labiia_lex&gt; - FAQ</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1><span>❓</span> FAQ</h1>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Navegação</div>
+            <a href="geral.html" class="nav-link"><span>📚</span> Geral</a>
+            <a href="analises.html" class="nav-link"><span>🔬</span> Análises</a>
+            <a href="matriz.html" class="nav-link"><span>📋</span> Matriz</a>
+            <a href="limpeza.html" class="nav-link"><span>🧹</span> Limpeza</a>
+            <a href="faq.html" class="nav-link active"><span>❓</span> FAQ</a>
+            <a href="glossario.html" class="nav-link"><span>📖</span> Glossário</a>
+            <a href="sobre.html" class="nav-link"><span>ℹ️</span> Sobre</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Nesta página</div>
+            <a href="#primeiros-passos" class="nav-link">Primeiros passos</a>
+            <a href="#dados" class="nav-link">Dados e corpus</a>
+            <a href="#analises" class="nav-link">Escolha dos testes</a>
+            <a href="#resultados" class="nav-link">Interpretação</a>
+            <a href="#problemas" class="nav-link">Problemas comuns</a>
+            <a href="#responsabilidade" class="nav-link">Uso responsável</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="geral.html">📚 Geral</a>
+            <span>›</span>
+            <span class="current">❓ Perguntas Frequentes</span>
+        </div>
+
+        <div class="hero" id="top">
+            <h1>❓ Perguntas Frequentes</h1>
+            <p>Respostas em linguagem direta para quem está começando em análise textual automatizada e quer saber o que fazer, como interpretar e quando desconfiar dos resultados.</p>
+        </div>
+
+        <section id="primeiros-passos" class="section">
+            <h2><span>🚀</span> Primeiros passos</h2>
+
+            <details open>
+                <summary>Eu nunca usei análise textual automatizada. Por onde começo?</summary>
+                <div class="details-content">
+                    <p>Comece simples: importe o corpus, rode <strong>Estatísticas</strong> para entender o tamanho e a qualidade dos dados, gere uma <strong>Nuvem</strong> para ter uma visão rápida do vocabulário e depois avance para <strong>CHD</strong> ou <strong>Similitude</strong>. Só use LDA, YAKE, Wordfish ou Keyness depois de conhecer minimamente o corpus.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O &lt;labiia_lex&gt; interpreta o texto por mim?</summary>
+                <div class="details-content">
+                    <p>Não. O software organiza evidências: frequências, classes, redes, tópicos, palavras-chave e gráficos. A interpretação continua sendo responsabilidade do pesquisador. Uma classe da CHD, por exemplo, não “vem com tema pronto”; você nomeia o tema lendo palavras, segmentos e contexto.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Qual é o fluxo mais seguro para uma primeira análise?</summary>
+                <div class="details-content">
+                    <ol>
+                        <li>Importe os textos.</li>
+                        <li>Revise se o corpus foi separado corretamente em documentos e segmentos.</li>
+                        <li>Rode Estatísticas.</li>
+                        <li>Corrija limpeza/normalização se houver ruído demais.</li>
+                        <li>Rode CHD e Similitude como análises centrais.</li>
+                        <li>Use Concordância para conferir os termos importantes no contexto original.</li>
+                        <li>Use análises semânticas e extras como complemento, não como substituto da leitura.</li>
+                    </ol>
+                </div>
+            </details>
+
+            <details>
+                <summary>O que mudou no &lt;labiia_lex&gt; 1.0.9?</summary>
+                <div class="details-content">
+                    <p>O &lt;labiia_lex&gt; 1.0.9 mantém a importação rápida e concentra recursos mais pesados em <strong>Preparar corpus</strong>. Essa etapa pode sugerir expressões compostas, entidades nomeadas leves, contextos de auditoria e decisões reversíveis antes das análises. LDA e Mapa Temático também passam a exportar frases representativas reais do corpus para ajudar a interpretar tópicos e comunidades.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Preciso usar Preparar corpus em todo projeto?</summary>
+                <div class="details-content">
+                    <p>Não. A etapa é opcional. Use quando houver ruído, variações de nomes, siglas, instituições ou
+                        expressões compostas importantes. Se o corpus já estiver limpo e sua análise for simples, você
+                        pode importar e seguir direto para os testes.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Preciso saber programar em Python ou R?</summary>
+                <div class="details-content">
+                    <p>Não para usar a interface. O &lt;labiia_lex&gt; foi pensado para executar localmente fluxos complexos sem exigir programação. Ainda assim, entender conceitos básicos de corpus, frequência, coocorrência e segmentação melhora muito a qualidade da interpretação.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Por que a Similitude pode pedir pacotes R?</summary>
+                <div class="details-content">
+                    <p>Alguns fluxos estatisticos classicos usam pacotes R como <em>igraph</em>, <em>sna</em>, <em>network</em>,
+                        <em>intergraph</em> e <em>jsonlite</em>. Se eles estiverem ausentes, o &lt;labiia_lex&gt; tenta reparar
+                        a biblioteca do R configurado. Ele não baixa uma nova versão do R automaticamente.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="dados" class="section">
+            <h2><span>📥</span> Dados, corpus e importação</h2>
+
+            <details>
+                <summary>Que tipo de texto posso analisar?</summary>
+                <div class="details-content">
+                    <p>Entrevistas, respostas abertas, discursos, notícias, documentos institucionais, artigos, relatórios e outros conjuntos textuais. O mais importante é que os textos tenham relação com uma pergunta de pesquisa clara e estejam organizados de modo consistente.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Posso importar PDF, Word, planilhas e ZIP?</summary>
+                <div class="details-content">
+                    <p>Sim. O importador aceita formatos comuns como PDF, DOCX, TXT, CSV, XLSX e ZIP. Em PDFs escaneados como imagem, porém, pode ser necessário fazer OCR antes, porque o software precisa de texto extraível.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O que é um corpus?</summary>
+                <div class="details-content">
+                    <p>Corpus é o conjunto de textos que você decidiu analisar. Ele não é apenas uma pasta de arquivos: é uma amostra textual construída para responder a uma pergunta. Um corpus mal definido produz gráficos bonitos, mas interpretações frágeis.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O que são UCI e UCE?</summary>
+                <div class="details-content">
+                    <p><strong>UCI</strong> é a unidade maior, normalmente o documento original, como uma entrevista ou notícia. <strong>UCE</strong> é um segmento menor criado a partir da UCI. A CHD compara esses segmentos para formar classes lexicais.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Qual tamanho de UCE devo usar?</summary>
+                <div class="details-content">
+                    <p>Use um valor confortável como ponto de partida, por exemplo em torno de 40 palavras, e ajuste se necessário. UCEs muito curtas podem perder contexto; UCEs muito longas podem misturar assuntos diferentes. Não existe número universal perfeito.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Devo remover acentos, números e pontuação?</summary>
+                <div class="details-content">
+                    <p>Depende. Remover acentos e padronizar maiúsculas/minúsculas costuma reduzir ruído. Remover números pode ser ruim se datas, valores ou códigos forem relevantes. A regra é simples: limpe o que atrapalha a pergunta de pesquisa, preserve o que carrega significado.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando devo usar Normalizar?</summary>
+                <div class="details-content">
+                    <p>Use Normalizar quando o corpus tiver muitas variações de uma mesma forma, como grafias diferentes, singular/plural indesejado ou nomes escritos de modos distintos. Não use para juntar palavras parecidas que têm sentidos diferentes.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Qual a diferença entre Normalizar e Preparar corpus?</summary>
+                <div class="details-content">
+                    <p><strong>Normalizar</strong> serve para padronizar equivalências que você conhece, como
+                        <em>covid</em>, <em>COVID-19</em> e <em>coronavírus</em>. <strong>Preparar corpus</strong>
+                        sugere expressões e entidades recorrentes a partir do próprio corpus, mas você decide o que
+                        aplicar. Normalização é mais manual; preparação é uma triagem assistida e auditável.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Meu texto aparece com caracteres estranhos, como Ã£ ou Ã©. O que aconteceu?</summary>
+                <div class="details-content">
+                    <p>Isso geralmente é problema de codificação do arquivo. Tente salvar o texto em UTF-8 antes de importar. Em planilhas, também verifique se separadores, acentos e quebras de linha foram preservados corretamente.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="analises" class="section">
+            <h2><span>🔬</span> Escolha dos testes</h2>
+
+            <details>
+                <summary>Qual teste devo rodar primeiro?</summary>
+                <div class="details-content">
+                    <p>Rode <strong>Estatísticas</strong> primeiro. Ela mostra se o corpus está grande, pequeno, limpo, repetitivo ou fragmentado. Depois, use <strong>CHD</strong> para classes lexicais e <strong>Similitude</strong> para relações entre termos.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar CHD?</summary>
+                <div class="details-content">
+                    <p>Use CHD quando quiser descobrir grupos de segmentos com vocabulários diferentes. Ela é útil para entrevistas, respostas abertas e documentos com temas variados. Leia as palavras características e os segmentos de cada classe antes de nomeá-la.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Similitude?</summary>
+                <div class="details-content">
+                    <p>Use Similitude para enxergar como os termos se conectam. Ela ajuda a encontrar termos centrais, blocos de vocabulário e pontes entre temas. É uma análise de relações, não apenas de frequência.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Concordância?</summary>
+                <div class="details-content">
+                    <p>Use Concordância sempre que um termo parecer importante. Ela mostra a palavra no contexto original e ajuda a evitar interpretações erradas causadas por ambiguidade, ironia ou sentidos diferentes.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Nuvem de Palavras?</summary>
+                <div class="details-content">
+                    <p>Use como visão rápida do vocabulário dominante. A nuvem é boa para apresentação inicial, mas é limitada: ela não mostra contexto, relações entre termos nem diferenças estatísticas entre grupos.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar LDA?</summary>
+                <div class="details-content">
+                    <p>Use LDA quando quiser explorar tópicos latentes em documentos. Ela funciona melhor com corpus suficiente e textos minimamente comparáveis. O número de tópicos deve ser testado e interpretado; não escolha k apenas porque “parece bonito”.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O tuning de K escolhe automaticamente o melhor LDA?</summary>
+                <div class="details-content">
+                    <p>Não. Ele gera sinais de comparação, como perplexidade e diagnósticos, para ajudar a decidir.
+                        A escolha final continua sendo interpretativa: leia os termos, as frases representativas, os
+                        documentos misturados e a coerência dos tópicos com sua pergunta.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O que são as frases representativas do LDA e do Mapa Temático?</summary>
+                <div class="details-content">
+                    <p>São frases reais extraídas do corpus, ranqueadas como bons exemplos de um tópico ou comunidade.
+                        Elas não são geradas por IA e não substituem a leitura do corpus; servem como atalho de
+                        interpretação e conferência.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar YAKE?</summary>
+                <div class="details-content">
+                    <p>Use YAKE para extrair palavras-chave e expressões relevantes de forma automática. Ele é útil para resumir documentos e sugerir termos importantes, mas os resultados devem ser revisados pelo pesquisador.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Heatmap Associativo?</summary>
+                <div class="details-content">
+                    <p>Use quando quiser comparar intensidades de associação entre termos. O heatmap é útil para ver padrões de pares ou blocos de palavras, especialmente quando uma rede ficaria confusa demais.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Rede Textual?</summary>
+                <div class="details-content">
+                    <p>Use para explorar estrutura relacional do corpus por meio de grafo. Ela ajuda a identificar termos conectores, comunidades e padrões de proximidade lexical.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Emoções ou Sentimento?</summary>
+                <div class="details-content">
+                    <p>Use como leitura complementar de tom afetivo. Esses métodos dependem de léxicos e podem falhar com sarcasmo, contexto político, gírias, negações ou usos técnicos. Sempre confira exemplos no texto.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Keyness?</summary>
+                <div class="details-content">
+                    <p>Use quando quiser comparar grupos ou corpora e descobrir termos distintivos. Keyness responde “o que aparece de forma mais característica aqui do que ali?”, não apenas “o que aparece muito?”.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Bigramas e Trigramas?</summary>
+                <div class="details-content">
+                    <p>Use para encontrar expressões compostas, como “política pública”, “direitos humanos” ou “inteligência artificial”. Eles ajudam a evitar que uma expressão importante seja quebrada em palavras soltas.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Por que Preparar corpus sugere apenas expressões de 2 ou 3 palavras?</summary>
+                <div class="details-content">
+                    <p>Porque expressões muito longas tendem a virar trechos acidentais do texto, não conceitos reais.
+                        O limite de 2 ou 3 palavras deixa a etapa mais rápida e reduz sugestões estranhas, mantendo
+                        casos comuns como <em>política pública</em> e <em>Supremo Tribunal Federal</em>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Quando usar Wordfish?</summary>
+                <div class="details-content">
+                    <p>Use apenas quando fizer sentido posicionar documentos em uma dimensão latente, como em comparação de discursos políticos. A dimensão precisa ser interpretada teoricamente; o software não sabe sozinho se o eixo significa esquerda-direita, governo-oposição ou outro contraste.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="resultados" class="section">
+            <h2><span>📊</span> Resultados e interpretação</h2>
+
+            <details>
+                <summary>Um gráfico bonito significa que a análise está correta?</summary>
+                <div class="details-content">
+                    <p>Não. Visualizações ajudam a perceber padrões, mas podem esconder problemas de corpus, limpeza ou parametrização. Sempre confira tabelas, segmentos, termos no contexto e coerência com sua pergunta de pesquisa.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Como nomear uma classe da CHD?</summary>
+                <div class="details-content">
+                    <p>Leia os termos mais característicos, os segmentos típicos e a relação com as demais classes. O nome deve resumir o sentido interpretativo da classe, não apenas repetir a palavra mais frequente.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Por que a palavra mais frequente nem sempre é a mais importante?</summary>
+                <div class="details-content">
+                    <p>Porque frequência mede quantidade, não especificidade. Uma palavra pode aparecer muito em todo o corpus e não diferenciar nenhum grupo. Para termos distintivos, use CHD, Keyness, qui-quadrado ou comparação contextual.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O que faço quando uma análise dá resultado estranho?</summary>
+                <div class="details-content">
+                    <p>Volte ao básico: verifique importação, segmentação, stopwords, normalização e tamanho do corpus. Depois rode Estatísticas novamente. Muitos “problemas de algoritmo” são, na prática, problemas de preparação dos dados.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Posso comparar resultados de testes diferentes?</summary>
+                <div class="details-content">
+                    <p>Sim, e isso é recomendado. CHD pode sugerir classes, Similitude pode mostrar relações entre termos, Concordância pode validar contexto e LDA pode sugerir tópicos. O ganho está na triangulação, não em escolher um teste como verdade absoluta.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Por que o mesmo corpus pode gerar resultados diferentes em LDA?</summary>
+                <div class="details-content">
+                    <p>LDA é probabilístico e depende de parâmetros como número de tópicos, método e semente. Use seed fixa para reprodutibilidade e compare diferentes valores de k antes de interpretar os tópicos.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="problemas" class="section">
+            <h2><span>🛠️</span> Problemas comuns</h2>
+
+            <details>
+                <summary>Os botões de análise estão desabilitados. Por quê?</summary>
+                <div class="details-content">
+                    <p>Normalmente porque nenhum corpus foi importado ainda. Importe textos primeiro. Algumas funções também dependem de resultados anteriores ou parâmetros válidos.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O software não encontra o R. O que faço?</summary>
+                <div class="details-content">
+                    <p>Abra <strong>Ajustes</strong> e confira o caminho do <code>Rscript.exe</code>. Em instalações padrão do Windows, ele costuma estar em <code>C:\Program Files\R\R-x.x.x\bin\Rscript.exe</code>. Se o R não estiver instalado, instale uma versão compatível antes de rodar análises que dependem dele.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Uma análise demorou muito. Isso é normal?</summary>
+                <div class="details-content">
+                    <p>Pode ser normal em corpus grande, especialmente em redes, CHD, LDA ou análises com muitos termos. Se estiver muito lento, reduza termos, revise stopwords, diminua parâmetros ou teste com uma amostra menor para diagnosticar.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Por que meu PDF importou pouco texto?</summary>
+                <div class="details-content">
+                    <p>Provavelmente o PDF é escaneado ou protegido. PDFs de imagem precisam de OCR antes da importação. PDFs com múltiplas colunas, cabeçalhos repetidos ou notas de rodapé também podem exigir limpeza posterior.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Perdi um resultado ao rodar outro teste?</summary>
+                <div class="details-content">
+                    <p>Os resultados recentes devem aparecer em abas e no histórico. Use a área central de resultados para voltar a execuções anteriores. Se fechou uma aba, procure o item no histórico de resultados.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Posso trabalhar sem internet?</summary>
+                <div class="details-content">
+                    <p>Sim. O &lt;labiia_lex&gt; foi pensado para rodar localmente. A internet só é útil para consultar documentação externa, baixar dependências ou acessar recursos que eventualmente dependam de serviços externos.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="responsabilidade" class="section">
+            <h2><span>⚖️</span> Uso responsável</h2>
+
+            <details>
+                <summary>Posso usar os resultados diretamente em artigo, relatório ou dissertação?</summary>
+                <div class="details-content">
+                    <p>Sim, mas documente o corpus, os parâmetros, as etapas de limpeza e os critérios interpretativos. Bons resultados computacionais precisam ser auditáveis e explicáveis.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>O software substitui leitura qualitativa?</summary>
+                <div class="details-content">
+                    <p>Não. Ele ajuda a ampliar escala, encontrar padrões e organizar evidências. A leitura qualitativa continua essencial para interpretar sentido, ironia, contexto histórico, ambiguidade e relevância teórica.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Como evitar conclusões exageradas?</summary>
+                <div class="details-content">
+                    <p>Evite dizer que “o algoritmo provou” algo. Prefira formular que “a análise sugere”, “o padrão observado indica” ou “os resultados são compatíveis com”. Depois sustente a interpretação com exemplos textuais e referências teóricas.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Devo guardar os arquivos exportados?</summary>
+                <div class="details-content">
+                    <p>Sim. Guarde gráficos, tabelas, relatórios e parâmetros. Eles permitem reproduzir a análise, revisar decisões e explicar como você chegou às conclusões.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Como pedir ajuda ou reportar problema?</summary>
+                <div class="details-content">
+                    <p>Informe o tipo de corpus, o teste usado, os parâmetros, a mensagem de erro e, se possível, um exemplo mínimo que reproduza o problema. Contato: <strong>cardososampaio@gmail.com</strong>.</p>
+                </div>
+            </details>
+        </section>
+
+        <footer class="footer">
+            <p>&lt;labiia_lex&gt; v1.0.9 — Central de Ajuda</p>
+            <p><a href="#top">↑ Voltar ao topo</a></p>
+        </footer>
+    </main>
+
+    <a href="#top" class="back-to-top">↑</a>
+</body>
+
+</html>
+
+

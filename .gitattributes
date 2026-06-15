@@ -1,0 +1,2 @@
+resources/jre17/** filter=lfs diff=lfs merge=lfs -text
+resources/gephi_runner/gephi-runner.jar filter=lfs diff=lfs merge=lfs -text

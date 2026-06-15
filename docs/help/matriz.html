@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;labiia_lex&gt; - Análises de Matriz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1><span>📋</span> Matriz</h1>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Navegação</div>
+            <a href="geral.html" class="nav-link"><span>📚</span> Geral</a>
+            <a href="analises.html" class="nav-link"><span>🔬</span> Análises</a>
+            <a href="matriz.html" class="nav-link active"><span>📋</span> Matriz</a>
+            <a href="limpeza.html" class="nav-link"><span>🧹</span> Limpeza</a>
+            <a href="faq.html" class="nav-link"><span>❓</span> FAQ</a>
+            <a href="glossario.html" class="nav-link"><span>📖</span> Glossário</a>
+            <a href="sobre.html" class="nav-link"><span>ℹ️</span> Sobre</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Nesta Página</div>
+            <a href="#oque" class="nav-link">O que é?</a>
+            <a href="#freq" class="nav-link">Frequências</a>
+            <a href="#chi2" class="nav-link">Qui-Quadrado</a>
+            <a href="#chd-mat" class="nav-link">CHD Matriz</a>
+            <a href="#simi-mat" class="nav-link">Similitude Matriz</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <a href="geral.html">📚 Geral</a>
+            <span>›</span>
+            <span class="current">📋 Matriz</span>
+        </div>
+
+        <div class="hero" id="top">
+            <h1>📋 Análises de Matriz</h1>
+            <p>Para quando você já tem tabelas de frequência prontas e quer aplicar o rigor estatístico sem precisar
+                re-processar textos.</p>
+        </div>
+
+        <section id="oque" class="section">
+            <h2><span>❓</span> O que são Análises de Matriz?</h2>
+            <div class="topico-didatico">
+                <h4>🎯 Conceito</h4>
+                <p>Diferente da análise textual, onde o software extrai as palavras dos textos, aqui você já fornece a
+                    tabela (frequência de palavras por entrevistado, por exemplo) no formato de planilha (.xlsx ou
+                    .csv).</p>
+            </div>
+        </section>
+
+        <section id="freq" class="section">
+            <h2><span>📊</span> Frequências</h2>
+            <p>Calcula as proporções e índices simples dos dados da matriz carregada. Uma visão inicial dos totais e
+                distribuições antes de aplicar análises aprofundadas.</p>
+        </section>
+
+        <section id="chi2" class="section">
+            <h2><span>🧮</span> Qui-Quadrado (χ²)</h2>
+            <p>Mede a associação entre linhas e colunas. Responde se a presença de certas palavras em certos grupos é
+                <strong>estatisticamente significativa</strong> ou apenas acaso.
+            </p>
+            <div class="exemplo-pratico">
+                <strong>Interpretação:</strong> Um χ² alto com p-valor < 0.05 indica que os grupos falam de formas
+                    realmente distintas. </div>
+        </section>
+
+        <section id="chd-mat" class="section">
+            <h2><span>🌳</span> CHD sobre Matriz</h2>
+            <p>Classifica as linhas (ou colunas) em grupos homogêneos baseados no perfil de frequência.</p>
+        </section>
+
+        <section id="simi-mat" class="section">
+            <h2><span>🔗</span> Similitude sobre Matriz</h2>
+            <p>Construção de árvores máximas e redes de coocorrência (grafos) usando os valores das frequências. Mostra
+                as correlações mais fortes descritas na sua matriz.</p>
+        </section>
+
+
+        <footer class="footer">
+            <p>&lt;labiia_lex&gt; v1.0.9 — Guia de Matrizes</p>
+            <p><a href="#top">↑ Voltar ao topo</a></p>
+        </footer>
+    </main>
+
+    <a href="#top" class="back-to-top">↑</a>
+</body>
+
+</html>
+
+

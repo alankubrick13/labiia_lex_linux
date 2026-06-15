@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>&lt;labiia_lex&gt; - Limpeza de Corpus</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <nav class="nav-container">
+        <div class="nav-header">
+            <h1><span>📊</span> &lt;labiia_lex&gt;</h1>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Manual Principal</div>
+            <a href="geral.html" class="nav-link"><span>📚</span> Geral</a>
+            <a href="analises.html" class="nav-link"><span>🔬</span> Análises</a>
+            <a href="matriz.html" class="nav-link"><span>📋</span> Matriz</a>
+            <a href="limpeza.html" class="nav-link active"><span>🧹</span> Limpeza de Corpus</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Suporte</div>
+            <a href="faq.html" class="nav-link"><span>❓</span> FAQ</a>
+            <a href="glossario.html" class="nav-link"><span>📖</span> Glossário</a>
+            <a href="sobre.html" class="nav-link"><span>ℹ️</span> Sobre</a>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Nesta Página</div>
+            <a href="#importancia" class="nav-link">Por que limpar?</a>
+            <a href="#preparar-corpus" class="nav-link">Preparar corpus</a>
+            <a href="#auditoria" class="nav-link">Auditoria</a>
+            <a href="#dicas-basicas" class="nav-link">O Básico Antes de Começar</a>
+            <a href="#dicas-avancadas" class="nav-link">Técnicas de Mineração Textual</a>
+            <a href="#problemas-comuns" class="nav-link">Atenção com Problemas Comuns</a>
+            <a href="#dicas-academicas" class="nav-link">Textos Acadêmicos e Obras</a>
+            <a href="#dicas-pdf" class="nav-link">Dicas para PDFs</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="breadcrumb">
+            <span class="current">🧹 Limpeza de Corpus</span>
+        </div>
+
+        <div class="hero" id="top">
+            <h1>Preparação do seu arquivo <span>Dicas de Ouro</span></h1>
+            <p>Antes de importar seus documentos para o &lt;labiia_lex&gt;, uma boa "limpeza" do texto garante que suas
+                análises sejam muito mais fiéis e fáceis de interpretar, evitando resultados indesejados.</p>
+        </div>
+
+        <section id="importancia" class="section">
+            <h2><span>✨</span> Por que "limpar" o documento antes?</h2>
+            <p>A preparação do documento visa retirar os <strong>ruídos</strong> — ou seja, pedaços do texto que
+                <strong>não pertencem</strong> ao núcleo do que você quer analisar. Isso é importante (principalmente
+                para nós, leigos ou iniciantes), pois quanto mais puro o texto entrar, menos trabalho teremos dentro do
+                software e muito melhores serão as nuvens de palavras e laços nas análises.
+            </p>
+        </section>
+
+        <section id="dicas-basicas" class="section">
+            <h2><span>✂️</span> O Básico Antes de Começar</h2>
+            <p>Passos fáceis e práticos para você preparar qualquer arquivo (Excel, Word, Textos Livres):</p>
+            <ul>
+                <li><strong>Foque no que importa (Limpe o Lixo):</strong> Remova o quanto antes páginas de sumário,
+                    índices, agradecimentos ou apêndices espessos, pois apenas sujam as contagens.</li>
+                <li><strong>Corte as perguntas da pesquisa:</strong> Vai analisar entrevistas? Delete a parte em que
+                    você (ou o pesquisador) faz a pergunta, deixando só as respostas do entrevistado. Assim, as análises
+                    espelharão quem respondeu, sem o vício do questionário entrar para os gráficos.</li>
+                <li><strong>O Truque do "Bloco de Notas" (O Limpador Universal):</strong> Textos diretos da internet vêm
+                    com formatações "invisíveis". A dica máxima é: copie o texto na origem, cole no Bloco de Notas
+                    (Notepad) do Windows, e só então cole no destino final. O Bloco de Notas funciona como um filtro
+                    natural, "limpando" espaços em branco absurdos e dados invisíveis.</li>
+            </ul>
+        </section>
+
+        <section id="preparar-corpus" class="section">
+            <h2><span>🧾</span> Preparar corpus no &lt;labiia_lex&gt; 1.0.9</h2>
+            <p>A importação inicial continua rápida. Depois de importar, use <strong>Preparar corpus</strong> se quiser
+                rodar uma etapa opcional mais cuidadosa: ela pode detectar expressões compostas, sugerir entidades
+                nomeadas leves, mostrar exemplos de contexto e gravar auditoria das decisões antes de aplicar
+                underscores.</p>
+            <div class="features">
+                <div class="glossary-item" style="border-left: 3px solid var(--primary);">
+                    <div class="glossary-term">Expressões compostas</div>
+                    <div class="glossary-definition">O software sugere apenas expressões de 2 ou 3 palavras, como
+                        <em>política pública</em>, <em>direitos humanos</em> ou <em>inteligência artificial</em>. Você
+                        aceita ou rejeita cada sugestão antes de aplicar.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--secondary);">
+                    <div class="glossary-term">Entidades nomeadas leves</div>
+                    <div class="glossary-definition">Pode sugerir nomes próprios, siglas e instituições recorrentes,
+                        como <em>STF</em>, <em>Supremo Tribunal Federal</em> ou <em>Ministério da Saúde</em>.</div>
+                </div>
+                <div class="glossary-item" style="border-left: 3px solid var(--accent);">
+                    <div class="glossary-term">Seleção manual</div>
+                    <div class="glossary-definition">Nada é aplicado automaticamente. As sugestões aparecem em tabela
+                        com frequência, documentos e exemplos de contexto para revisão do pesquisador.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="auditoria" class="section">
+            <h2><span>🧾</span> Auditoria da preparação</h2>
+            <p>Quando você aplica expressões ou entidades, o &lt;labiia_lex&gt; pode gerar arquivos de auditoria. Eles registram
+                candidatos, decisões e contextos, permitindo explicar depois o que foi alterado no corpus.</p>
+            <ul>
+                <li><strong>Candidatos:</strong> lista as expressões ou entidades sugeridas.</li>
+                <li><strong>Decisões:</strong> registra o que foi aceito ou rejeitado.</li>
+                <li><strong>Contextos:</strong> mostra trechos reais em que a expressão apareceu.</li>
+            </ul>
+            <p>Esse fluxo é útil para artigos, relatórios e dissertações, porque deixa a limpeza mais transparente.</p>
+        </section>
+
+        <section id="dicas-avancadas" class="section">
+            <h2><span>🧠</span> Técnicas de Mineração Textual</h2>
+            <p>Softwares de contagem como este requerem um cuidado conceitual sobre como organizar e padronizar as
+                palavras para o robô entender.</p>
+            <ul>
+                <li><strong>A "Fatia" Correta (A Unidade de Análise Ideal):</strong> Softwares adoram comparar as
+                    coisas, mas você tem que dividí-las. Não cole dezenas de entrevistas ou dezenas de relatórios todos
+                    misturados numa única página gigante. Deixe cada notícia num arquivo TXT separado, ou cada resposta
+                    do entrevistado numa linha diferente do Excel. Separar na "menor unidade inteira" permite que o
+                    software encontre padrões infinitamente mais ricos do que receber um grande monolítico de palavras.
+                </li>
+                <li><strong>O Perigo das Ambiguidades e Duplos Sentidos:</strong> O computador lê os caracteres e a
+                    frequência com maestria, mas não compreende sarcasmo linguístico. Se no seu corpus de botânica
+                    existirem "mangas" (de camisas), o termo será somado absurdamente junto das frutas. Evite
+                    ambiguidades através da função de substituição (ex: trocando tudo por *manga_camisa* antes de
+                    analisar).</li>
+                <li><strong>Siglas e Palavras Compostas (Opcional):</strong> Se achar importante destacar uma entidade,
+                    una-a. Para não perder "Meio Ambiente" como duas palavras independentes nos gráficos de barras, use
+                    a função Localizar do seu editor de texto e troque todas as menções por <em>meio_ambiente</em>. O
+                    mesmo vale para abreviar Organização das Nações Unidas como <em>ONU</em> para facilitar a vida da
+                    inteligência artificial.</li>
+                <li><strong>A Atenção com Nomes Oficiais (Sem pulverizar!):</strong> Todo ser humano sabe que
+                    <em>Covid</em>, <em>COVID19</em>, <em>Covid-19</em> e <em>Novo Coronavírus</em> são a mesma coisa,
+                    ou que <em>Sampaio</em>, e <em>Rafael Sampaio</em> são a mesma entidade. O software NÃO SABE DISSO
+                    previamente! A frequência ficará dispersa. Defina o termo oficial e substitua todos os sinônimos
+                    antes de importar.</li>
+            </ul>
+        </section>
+
+        <section id="problemas-comuns" class="section">
+            <h2><span>🚨</span> Atenção com Problemas Comuns</h2>
+            <ul>
+                <li><strong>O Problema da Numeração "Suja":</strong> Em editais, leis ou atas, usamos e abusamos de
+                    formatos numéricos como "1.", "2.", "a)", "Art.". Se importar o texto na íntegra, esses indicadores
+                    minúsculos podem ofuscar o assunto principal do seu estudo liderando os gráficos. Seja rígido ao
+                    deletá-los.</li>
+                <li><strong>As Armadilhas das Atas e Rodapés:</strong> Muito cuidado ao importar centenas de atas
+                    contendo a mesma rubrica automática de rodapé ("Documento Assinado Eletronicamente", ou um número de
+                    contato, por exemplo). O programa assumirá essas palavras repetidas como "o assunto mais comentado
+                    de todos", sabotando toda sua rede. <br><br>💡<em> Dica ninja para o Bloco de Notas:</em> use o
+                    Ctrl+H (Substituir), cole a frase inteira do rodapé, deixe o quadro "Substituir por" completamente
+                    em branco (vazio), e clique em "Substituir Tudo" para evaporá-la do arquivo todo!</li>
+                <li><strong>Atenção com Links e "Lixo de Internet":</strong> Analisando postagens do X (Twitter) ou
+                    redes sociais? Exclua urls quebradas. Senão, pedaços de links quebrarão e as frequências de absurdos
+                    como "http", "www" tornar-se-ão os polos centrais da sua Análise Fatorial.</li>
+            </ul>
+        </section>
+
+        <section id="dicas-academicas" class="section">
+            <h2><span>📚</span> Cuidado ao Analisar Artigos e Obras</h2>
+            <p>Muitas pessoas importam pastas cheias de publicações, monografias ou dezenas de artigos da faculdade.
+                Preste atenção nesses velhos inimigos das análises de texto:</p>
+            <ul>
+                <li><strong>Corte os Abstracts/Resumen:</strong> Se o foco da análise for uma língua específica como o
+                    Português, limpe também o Resumo em Inglês (Abstract) ou Espanhol. Caso importe tudo junto, o
+                    programa começará a fazer grafos com palavras como "the", "and" ou "para", espalhando ruído em outro
+                    idioma para o meio dos seus resultados!</li>
+                <li><strong>Elimine as Referências Bibliográficas:</strong> As listas de referências ao fim de cada
+                    capítulo ou artigo são desastrosas: vão lotar seu sistema de nomes de locais e pessoas (ex: "SÃO
+                    PAULO", "CAMPINAS", "SILVA", "SOUZA", "BRASIL"). Se não cortá-las antes de utilizar o software, seus
+                    gráficos exibirão essas palavras gigantes!</li>
+                <li><strong>Diga adeus a tabelas imensas:</strong> Programas de texto consideram o texto linear. Evite
+                    importar dezenas de planilhas numéricas soltas no meio dos relatórios se essas informações não
+                    traduzirem dados lexicais ou qualitativos.</li>
+            </ul>
+        </section>
+
+        <section id="dicas-pdf" class="section">
+            <h2><span>📄</span> Dicas para PDFs</h2>
+            <p>Seus arquivos em formato PDF merecem um cuidado especial antes de entrarem nas análises:</p>
+            <ul>
+                <li><strong>Conversão Recomendada:</strong> Preferencialmente, transforme seu PDF para TXT ou DOCX, mas
+                    lembre-se que o software fará isso automaticamente (e ocultamente) se você preferir jogar o PDF
+                    diretamente no sistema.</li>
+                <li><strong>Cortes na fonte:</strong> Caso não queira transformar seus PDFs para TXT ou DOCX com
+                    antecedência, abra-os e pelo menos exclua as páginas de conteúdo mais irrelevante (como extensas
+                    listas de referências, página de capa e páginas iniciais de um livro).</li>
+                <li><strong>Apenas as partes úteis:</strong> Não inclua livros inteiros se você só quer investigar
+                    alguns capítulos dele! Remova o excesso.</li>
+                <li><strong>Ferramentas de ajuda:</strong> Se o seu editor de PDF na máquina não faz isso (separar
+                    páginas ou converter em texto), procure no pesquisador por diversas opções online que façam essas
+                    transformações gratuitamente.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2><span>📍</span> Próximos Passos</h2>
+            <div class="page-links" style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <a href="geral.html#importacao" class="page-link"
+                    style="text-decoration: none; background: var(--surface-hover); color: white; padding: 1rem 1.5rem; border-radius: 12px; flex: 1; text-align: center;"
+                    onclick="window.location.href='geral.html#importacao'">
+                    📥 Como Importar o Corpus
+                </a>
+                <a href="analises.html" class="page-link"
+                    style="text-decoration: none; background: var(--surface-hover); color: white; padding: 1rem 1.5rem; border-radius: 12px; flex: 1; text-align: center;">
+                    🔍 Entender o Menu Análises
+                </a>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&lt;labiia_lex&gt; v1.0.9 — Desenvolvido por Prof. Rafael Cardoso Sampaio (UFPE)</p>
+            <p>Gostou? Ajude o projeto pelos canais institucionais oficiais.</p>
+        </footer>
+    </main>
+
+    <a href="#top" class="back-to-top">↑</a>
+</body>
+
+</html>
+
+
