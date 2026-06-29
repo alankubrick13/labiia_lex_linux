@@ -69,18 +69,32 @@ def resolve_versioned_r_libs_user(
     app_name: str = APP_NAME,
     create: bool = True,
 ) -> str:
-    """Return the LabiiaLex-managed per-R-minor library path."""
+    """Return the LabiiaLex-managed per-R-minor library path.
+
+    On Windows: %LOCALAPPDATA%/<app_name>/R/library/<minor>
+    On Linux:   $XDG_DATA_HOME/<app_name>/R/library/<minor>
+                (defaults to ~/.local/share/<app_name>/...)
+    On macOS:   ~/Library/Application Support/<app_name>/R/library/<minor>
+    """
     forced = (os.environ.get("LEXIANALYST_R_LIBS_USER") or "").strip()
     if forced:
         if create:
             Path(forced).mkdir(parents=True, exist_ok=True)
         return forced
 
-    local_appdata = (os.environ.get("LOCALAPPDATA") or "").strip()
-    if local_appdata:
-        base = Path(local_appdata) / app_name / "R" / "library"
+    if os.name == "nt":
+        local_appdata = (os.environ.get("LOCALAPPDATA") or "").strip()
+        if local_appdata:
+            base = Path(local_appdata) / app_name / "R" / "library"
+        else:
+            base = Path.home() / "AppData" / "Local" / app_name / "R" / "library"
+    elif sys.platform == "darwin":
+        base = Path.home() / "Library" / "Application Support" / app_name / "R" / "library"
     else:
-        base = Path.home() / f".{app_name}" / "R" / "library"
+        # Linux — padrão XDG
+        xdg_data = (os.environ.get("XDG_DATA_HOME") or "").strip()
+        xdg_base = Path(xdg_data) if xdg_data else Path.home() / ".local" / "share"
+        base = xdg_base / app_name / "R" / "library"
 
     version_dir = r_minor_version(r_version or MIN_R_VERSION)
     path = base / version_dir
@@ -117,7 +131,7 @@ class RRuntimeResolver:
                 accepted.append(info)
 
         if not accepted:
-            raise FileNotFoundError("Rscript.exe nao encontrado ou versao R incompativel.")
+            raise FileNotFoundError("Rscript nao encontrado ou versao R incompativel.")
 
         accepted.sort(key=lambda item: version_tuple(item.version_token), reverse=True)
         selected = accepted[0]
@@ -139,7 +153,7 @@ class RRuntimeResolver:
         info = self._probe_candidate(candidate, rejected)
         if info is None:
             reason = rejected[0]["reason"] if rejected else "invalid explicit R runtime"
-            raise FileNotFoundError(f"Rscript.exe explicito invalido: {candidate.path} ({reason})")
+            raise FileNotFoundError(f"Rscript explicito invalido: {candidate.path} ({reason})")
         diagnostics = {
             "accepted": [self._diag_entry(info)],
             "rejected": rejected,
@@ -188,6 +202,11 @@ class RRuntimeResolver:
         if env_r_home:
             candidates.extend(self._rscript_candidates_from_home(Path(env_r_home), "env:R_HOME"))
 
+        # Linux/macOS: prioridade para candidatos Unix antes das buscas Windows
+        if sys.platform != "win32":
+            candidates.extend(self._unix_candidates())
+
+        # Windows: registro e locais padrão
         candidates.extend(self._registry_candidates())
         candidates.extend(self._root_candidates(Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "R", "programfiles"))
         candidates.extend(self._root_candidates(Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "R", "programfilesx86"))
@@ -199,6 +218,7 @@ class RRuntimeResolver:
 
         candidates.extend(self._root_candidates(Path(r"C:\R"), "c_root"))
         candidates.extend(self._root_candidates(Path(r"C:\tools\R"), "chocolatey"))
+        # shutil.which como fallback universal (funciona em todos os SOs)
         candidates.extend(self._where_candidates())
         return candidates
 
@@ -215,10 +235,20 @@ class RRuntimeResolver:
         return (result.stdout or result.stderr or "").strip()
 
     def _rscript_candidates_from_home(self, home: Path, source: str) -> List[RCandidate]:
-        return [
-            RCandidate(home / "bin" / "Rscript.exe", source),
-            RCandidate(home / "bin" / "x64" / "Rscript.exe", source),
-        ]
+        """Retorna candidatos Rscript a partir de um R_HOME.
+
+        No Windows usa Rscript.exe (e x64/Rscript.exe para instalações antigas).
+        No Linux/macOS usa Rscript (sem extensão).
+        """
+        if sys.platform == "win32":
+            return [
+                RCandidate(home / "bin" / "Rscript.exe", source),
+                RCandidate(home / "bin" / "x64" / "Rscript.exe", source),
+            ]
+        else:
+            return [
+                RCandidate(home / "bin" / "Rscript", source),
+            ]
 
     def _registry_candidates(self) -> List[RCandidate]:
         if sys.platform != "win32":
@@ -261,8 +291,65 @@ class RRuntimeResolver:
         return candidates
 
     def _where_candidates(self) -> List[RCandidate]:
-        path = shutil.which("Rscript")
-        return [RCandidate(Path(path), "path:where")] if path else []
+        """Busca Rscript via shutil.which (funciona em todos os SOs)."""
+        found: List[RCandidate] = []
+        # Tenta variações de nome; no Windows 'Rscript' resolve para Rscript.exe
+        for name in ("Rscript", "rscript"):
+            path = shutil.which(name)
+            if path:
+                found.append(RCandidate(Path(path), f"path:which:{name}"))
+                break  # Evita duplicatas
+        return found
+
+    def _unix_candidates(self) -> List[RCandidate]:
+        """Descobre Rscript em instalações típicas do Linux e macOS.
+
+        Chamado apenas em sistemas não-Windows. Complementa _where_candidates()
+        cobrindo instalações R que não estejam no PATH.
+        """
+        candidates: List[RCandidate] = []
+
+        # Locais padrão de instalação no Linux (apt/deb, dnf/rpm, pacman, brew)
+        unix_r_homes = [
+            Path("/usr/lib/R"),           # Debian/Ubuntu (r-base)
+            Path("/usr/lib64/R"),          # Fedora/RHEL (r-base)
+            Path("/usr/local/lib/R"),      # Compilado do fonte
+            Path("/usr/local/lib64/R"),    # Compilado 64-bit
+            Path("/opt/R"),                # rig (R Installation Manager)
+            Path("/opt/local/lib/R"),      # MacPorts no macOS
+        ]
+
+        # Locais por usuário
+        xdg_data = (os.environ.get("XDG_DATA_HOME") or "").strip()
+        if xdg_data:
+            unix_r_homes.append(Path(xdg_data) / "R")
+        unix_r_homes.append(Path.home() / ".local" / "lib" / "R")
+        unix_r_homes.append(Path.home() / ".local" / "share" / "rig" / "R")
+
+        for home in unix_r_homes:
+            rscript = home / "bin" / "Rscript"
+            if rscript.exists():
+                candidates.append(RCandidate(rscript, f"unix_home:{home}"))
+
+        # rig: versões múltiplas em /opt/R/R-x.y.z/
+        opt_r = Path("/opt/R")
+        if opt_r.is_dir():
+            for version_dir in sorted(opt_r.iterdir(), reverse=True):
+                rscript = version_dir / "bin" / "Rscript"
+                if rscript.exists():
+                    candidates.append(RCandidate(rscript, f"rig:{version_dir.name}"))
+
+        # macOS: R.app instala em /Library/Frameworks/R.framework
+        if sys.platform == "darwin":
+            for fw_path in (
+                Path("/Library/Frameworks/R.framework/Versions/Current/Resources"),
+                Path("/usr/local/Cellar"),  # Homebrew prefix
+            ):
+                rscript = fw_path / "bin" / "Rscript"
+                if rscript.exists():
+                    candidates.append(RCandidate(rscript, f"darwin:{fw_path}"))
+
+        return candidates
 
     def _unique_candidates(self, candidates: Iterable[RCandidate]) -> List[RCandidate]:
         seen = set()

@@ -30,7 +30,7 @@ class ExecutionResult:
 
 class RNotFoundError(RuntimeError):
     """
-    Raised when Rscript.exe cannot be located.
+    Raised when Rscript cannot be located.
     """
 
 
@@ -109,7 +109,9 @@ class RExecutor:
         if r_path:
             candidate = Path(r_path)
             if candidate.is_dir():
-                candidate = candidate / "bin" / "Rscript.exe"
+                # Resolve nome correto do binário por plataforma
+                rscript_name = "Rscript.exe" if sys.platform == "win32" else "Rscript"
+                candidate = candidate / "bin" / rscript_name
             try:
                 self._r_runtime_info = RRuntimeResolver().resolve(explicit_path=candidate)
                 return str(self._r_runtime_info.rscript_path)
@@ -420,16 +422,18 @@ class RExecutor:
         """
         Gera candidatos a partir de R_HOME.
 
-        Args:
-            r_home: Path definido em R_HOME.
-
-        Returns:
-            Lista de caminhos possiveis para Rscript.exe.
+        No Windows usa Rscript.exe (e x64/Rscript.exe para instalações antigas).
+        No Linux/macOS usa Rscript (sem extensão).
         """
-        return [
-            r_home / "bin" / "Rscript.exe",
-            r_home / "bin" / "x64" / "Rscript.exe",
-        ]
+        if sys.platform == "win32":
+            return [
+                r_home / "bin" / "Rscript.exe",
+                r_home / "bin" / "x64" / "Rscript.exe",
+            ]
+        else:
+            return [
+                r_home / "bin" / "Rscript",
+            ]
 
     def _candidates_from_bundled_runtime(self) -> List[Path]:
         """
@@ -464,27 +468,79 @@ class RExecutor:
 
     def _candidates_from_where(self) -> List[Path]:
         """
-        Descobre caminhos via comando 'where Rscript'.
+        Descobre caminhos via shutil.which (todos os SOs) ou 'where' (Windows).
 
         Returns:
             Lista de caminhos encontrados no PATH.
         """
+        import shutil
         candidates: List[Path] = []
-        try:
-            result = subprocess.run(
-                ["where", "Rscript"],
-                check=False,
-                capture_output=True,
-                text=True,
-                **no_console_kwargs(),
-            )
-            if result.returncode == 0:
-                for line in result.stdout.splitlines():
-                    line = line.strip()
-                    if line:
-                        candidates.append(Path(line))
-        except OSError:
-            pass
+
+        # shutil.which funciona em todos os sistemas
+        for name in ("Rscript", "rscript"):
+            found = shutil.which(name)
+            if found:
+                candidates.append(Path(found))
+                break  # Evita duplicatas
+
+        # Windows: tenta 'where' como complemento (cobre edge cases)
+        if sys.platform == "win32" and not candidates:
+            try:
+                result = subprocess.run(
+                    ["where", "Rscript"],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                    **no_console_kwargs(),
+                )
+                if result.returncode == 0:
+                    for line in result.stdout.splitlines():
+                        line = line.strip()
+                        if line:
+                            candidates.append(Path(line))
+            except OSError:
+                pass
+
+        return candidates
+
+    def _unix_candidates(self) -> List[Path]:
+        """
+        Descobre Rscript em instalações típicas do Linux e macOS.
+
+        Chamado apenas em sistemas não-Windows. Complementa _candidates_from_where()
+        cobrindo instalações que não estejam no PATH.
+        """
+        import shutil
+        candidates: List[Path] = []
+
+        unix_r_homes = [
+            Path("/usr/lib/R"),           # Debian/Ubuntu (r-base)
+            Path("/usr/lib64/R"),          # Fedora/RHEL
+            Path("/usr/local/lib/R"),      # Compilado do fonte
+            Path("/usr/local/lib64/R"),    # Compilado 64-bit
+            Path("/opt/R"),                # rig
+            Path("/opt/local/lib/R"),      # MacPorts
+        ]
+
+        for home in unix_r_homes:
+            rscript = home / "bin" / "Rscript"
+            if rscript.exists():
+                candidates.append(rscript)
+
+        # rig: versões múltiplas em /opt/R/R-x.y.z/
+        opt_r = Path("/opt/R")
+        if opt_r.is_dir():
+            for version_dir in sorted(opt_r.iterdir(), reverse=True):
+                rscript = version_dir / "bin" / "Rscript"
+                if rscript.exists():
+                    candidates.append(rscript)
+
+        # macOS: R.framework
+        if sys.platform == "darwin":
+            fw_rscript = Path("/Library/Frameworks/R.framework/Versions/Current/Resources/bin/Rscript")
+            if fw_rscript.exists():
+                candidates.append(fw_rscript)
+
         return candidates
 
     def _candidates_from_registry(self) -> List[Path]:
@@ -605,11 +661,13 @@ class RExecutor:
             Mensagem amigavel com orientacao.
         """
         extra = f" Caminho informado: {custom_path}." if custom_path else ""
+        rscript_name = "Rscript.exe" if sys.platform == "win32" else "Rscript"
+        rscript_path_hint = f"resources/R/bin/{rscript_name}"
         return (
-            "O que aconteceu: O Rscript.exe nao foi encontrado no sistema." + extra + "\n"
+            "O que aconteceu: O Rscript nao foi encontrado no sistema." + extra + "\n"
             "Por que aconteceu: O runtime R embarcado pode estar ausente/invalido, "
             "ou o R externo nao esta disponivel.\n"
-            "Como resolver: Verifique resources/R/bin/Rscript.exe no pacote instalado "
+            f"Como resolver: Verifique {rscript_path_hint} no pacote instalado "
             "ou configure o caminho do R nas configuracoes."
         )
 

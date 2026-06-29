@@ -183,8 +183,23 @@ class MainWindow(ctk.CTk):
     """
 
     def __init__(self):
-        super().__init__()
+        # No Linux, o WM_CLASS deve ser definido via `className` no construtor
+        # do `tk.Tk` (repassado pelo CustomTkinter via **kwargs). Isso é o único
+        # método confiável — chamar wm_class() depois pode ser ignorado pelo WM.
+        # O WM_CLASS define o nome exibido na barra de tarefas e o ícone associado
+        # pelo gerenciador de janelas (GNOME/KDE), via StartupWMClass no .desktop.
+        _init_kwargs = {}
+        if platform.system() == "Linux":
+            _init_kwargs["className"] = "LabiiaLex"
+        super().__init__(**_init_kwargs)
         patch_customtkinter_entry_callback()
+
+        # Reforçar nome da aplicação Tk (parte de instância do WM_CLASS).
+        if platform.system() == "Linux":
+            try:
+                self.tk.call("tk", "appname", "LabiiaLex")
+            except Exception:
+                pass
 
         # Carregar config ANTES de aplicar tema para ler preferência dark/light
         self.config = ConfigManager()
@@ -220,6 +235,12 @@ class MainWindow(ctk.CTk):
 
         self.title(DISPLAY_APP_TITLE)
         self._apply_app_icon()
+        # Reaplicar o ícone após 300ms para garantir que sobrescreva qualquer
+        # chamada interna do CustomTkinter (que usa after(200, ...)).
+        # No Linux isso é essencial para o ícone aparecer na barra de tarefas.
+        if platform.system() == "Linux":
+            self.after(300, lambda: self._apply_window_icon(self))
+            self.after(600, lambda: self._apply_window_icon(self))
         # self.geometry("1200x800") # Removido para priorizar tela cheia
         self.minsize(900, 600)
         self._startup_onboarding_finished = False
@@ -315,25 +336,42 @@ class MainWindow(ctk.CTk):
             self.update_idletasks()
         except Exception:
             pass
+
+        # No Linux, o método correto para maximizar sem ocultar a barra de títulos/controles
+        # é usar o atributo "-zoomed" do Tkinter.
+        if platform.system() == "Linux":
+            try:
+                self.attributes("-zoomed", True)
+                return
+            except Exception:
+                pass
+
         screen_w = max(1024, int(self.winfo_screenwidth()))
         screen_h = max(720, int(self.winfo_screenheight()))
         try:
             self.state("zoomed")
         except Exception:
             try:
-                self.geometry(f"{screen_w}x{screen_h}+0+0")
+                # No Linux, definir geometry para o tamanho total da tela empurra a barra de títulos
+                # para baixo do painel do sistema ou para fora da tela. Evitamos isso no Linux.
+                if platform.system() != "Linux":
+                    self.geometry(f"{screen_w}x{screen_h}+0+0")
+                else:
+                    self.geometry("1200x800")
+                    self._center_window()
             except Exception:
                 pass
             return
 
-        # Fallback defensivo caso o WM ignore/atrase o zoomed.
-        try:
-            cur_w = int(self.winfo_width())
-            cur_h = int(self.winfo_height())
-            if cur_w < int(screen_w * 0.96) or cur_h < int(screen_h * 0.96):
-                self.geometry(f"{screen_w}x{screen_h}+0+0")
-        except Exception:
-            pass
+        # Fallback defensivo caso o WM ignore/atrase o zoomed (apenas fora do Linux).
+        if platform.system() != "Linux":
+            try:
+                cur_w = int(self.winfo_width())
+                cur_h = int(self.winfo_height())
+                if cur_w < int(screen_w * 0.96) or cur_h < int(screen_h * 0.96):
+                    self.geometry(f"{screen_w}x{screen_h}+0+0")
+            except Exception:
+                pass
 
     def _show_startup_popup(self):
         """Mostra popup 'Sobre' no inicio — layout Windows padrao."""
@@ -1878,30 +1916,83 @@ class MainWindow(ctk.CTk):
         self._enforce_main_pane_limits(persist=True)
 
     @staticmethod
-    def _resolve_app_icon_path() -> Optional[Path]:
+    def _resolve_app_icon_path(prefer_png: bool = False) -> Optional[Path]:
         root_dir = PathManager.project_root()
-        candidates = [
-            root_dir / "assets" / "icon.ico",
-            Path(__file__).resolve().parents[3] / "assets" / "icon.ico",
-            Path.cwd() / "assets" / "icon.ico",
-        ]
+        parents3 = Path(__file__).resolve().parents[3]
+        # No Linux, preferimos PNG (suporte nativo); no Windows, .ico.
+        if prefer_png:
+            candidates = [
+                root_dir / "assets" / "icon.png",
+                parents3 / "assets" / "icon.png",
+                Path.cwd() / "assets" / "icon.png",
+                root_dir / "assets" / "icon.ico",
+                parents3 / "assets" / "icon.ico",
+                Path.cwd() / "assets" / "icon.ico",
+            ]
+        else:
+            candidates = [
+                root_dir / "assets" / "icon.ico",
+                parents3 / "assets" / "icon.ico",
+                Path.cwd() / "assets" / "icon.ico",
+                root_dir / "assets" / "icon.png",
+                parents3 / "assets" / "icon.png",
+                Path.cwd() / "assets" / "icon.png",
+            ]
         for icon_path in candidates:
             if icon_path.exists():
                 return icon_path
         return None
 
     def _apply_window_icon(self, window: tk.Misc) -> None:
-        """Aplica ícone da aplicação em qualquer janela/toplevel."""
-        icon_path = self._resolve_app_icon_path()
+        """Aplica ícone da aplicação em qualquer janela/toplevel.
+
+        No Linux, usa exclusivamente wm_iconphoto() com PNG para garantir
+        que o ícone apareça corretamente na barra de tarefas.
+        No Windows, tenta iconbitmap() com .ico primeiro.
+        """
+        is_linux = platform.system() == "Linux"
+        # Preferimos PNG no Linux para wm_iconphoto
+        icon_path = self._resolve_app_icon_path(prefer_png=is_linux)
         if icon_path is None:
             return
-        try:
-            window.iconbitmap(str(icon_path))
-            window.iconbitmap(default=str(icon_path))
-        except Exception:
+
+        if is_linux:
+            # No Linux: wm_iconphoto é o único método confiável.
+            # Carregamos e reutilizamos a referência para evitar GC.
             try:
                 from PIL import Image, ImageTk
-
+                with Image.open(icon_path) as icon_img:
+                    rgba = icon_img.convert("RGBA")
+                    photo = ImageTk.PhotoImage(rgba)
+                    # Guardar referência persistente na classe para evitar GC
+                    if not hasattr(MainWindow, "_icon_photo_ref"):
+                        MainWindow._icon_photo_ref = photo
+                    else:
+                        MainWindow._icon_photo_ref = photo
+                window.wm_iconphoto(True, MainWindow._icon_photo_ref)
+                return
+            except Exception:
+                pass
+            # Fallback: tkinter nativo (sem PIL)
+            try:
+                if str(icon_path).endswith(".png"):
+                    photo = tk.PhotoImage(file=str(icon_path))
+                    MainWindow._icon_photo_ref = photo
+                    window.wm_iconphoto(True, photo)
+                    return
+            except Exception:
+                pass
+        else:
+            # Windows: tenta iconbitmap com .ico
+            try:
+                window.iconbitmap(str(icon_path))
+                window.iconbitmap(default=str(icon_path))
+                return
+            except Exception:
+                pass
+            # Fallback para Windows: wm_iconphoto com PIL
+            try:
+                from PIL import Image, ImageTk
                 with Image.open(icon_path) as icon_img:
                     rgba = icon_img.convert("RGBA")
                     MainWindow._icon_photo_ref = ImageTk.PhotoImage(rgba)

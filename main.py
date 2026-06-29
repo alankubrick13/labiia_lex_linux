@@ -107,15 +107,24 @@ def _required_resource_relatives(*, frozen: bool) -> list[str]:
         "Rscripts",
         "resources",
         "resources/gephi_runner/gephi-runner.jar",
-        "resources/jre17/bin/java.exe",
         "Rscripts/lda_topicmodels.R",
         "dictionaries/lexique_pt.txt",
         "docs/help/geral.html",
     ]
+    # Nome do binário Java difere por plataforma
+    if sys.platform == "win32":
+        required.append("resources/jre17/bin/java.exe")
+    elif frozen:
+        # AppImage pode embarcar JRE Linux; só exige se efetivamente presente
+        java_linux = base_dir / "resources" / "jre17" / "bin" / "java"
+        if java_linux.exists():
+            required.append("resources/jre17/bin/java")
+        # Caso java não esteja embutido, usa java do sistema (detectado via gephi_java_backend)
     if frozen:
         required.append("installer/manifests/r_environment_lock.json")
         if not _installer_requires_external_r():
-            required.append("resources/R/bin/Rscript.exe")
+            rscript_name = "Rscript.exe" if sys.platform == "win32" else "Rscript"
+            required.append(f"resources/R/bin/{rscript_name}")
     return required
 
 
@@ -130,10 +139,24 @@ def _resolve_bundle_path(relative: str) -> Path:
 
 
 def _user_data_root() -> Path:
-    local_appdata = str(os.environ.get("LOCALAPPDATA", "") or "").strip()
-    if local_appdata:
-        return Path(local_appdata) / APP_NAME
-    return Path.home() / f".{APP_NAME}"
+    """Diretório de dados do usuário para o LabiiaLex.
+
+    Windows: %LOCALAPPDATA%/<APP_NAME>
+    Linux:   $XDG_DATA_HOME/<APP_NAME> (padrão: ~/.local/share/<APP_NAME>)
+    macOS:   ~/Library/Application Support/<APP_NAME>
+    """
+    if os.name == "nt":
+        local_appdata = str(os.environ.get("LOCALAPPDATA", "") or "").strip()
+        if local_appdata:
+            return Path(local_appdata) / APP_NAME
+        return Path.home() / "AppData" / "Local" / APP_NAME
+    elif sys.platform == "darwin":
+        return Path.home() / "Library" / "Application Support" / APP_NAME
+    else:
+        # Linux: padrão XDG
+        xdg_data = str(os.environ.get("XDG_DATA_HOME", "") or "").strip()
+        xdg_base = Path(xdg_data) if xdg_data else Path.home() / ".local" / "share"
+        return xdg_base / APP_NAME
 
 
 def _repair_summary_from_state(state: Dict[str, Any]) -> Dict[str, Any]:

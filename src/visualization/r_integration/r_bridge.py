@@ -30,12 +30,19 @@ def _default_r_lib_candidates() -> List[Path]:
     local_appdata = os.environ.get("LOCALAPPDATA", "").strip()
     candidates: List[Path] = []
     if local_appdata:
-        # Primary per-user location for non-admin installer builds.
+        # Windows: locais padrão de instalação por usuário
         candidates.append(Path(local_appdata) / APP_NAME / "R" / "library")
         candidates.append(Path(local_appdata) / "LabiiaLex" / "R" / "library")
-    # Backward compatibility with older shared installs.
+    # Windows: instalação compartilhada legada
     candidates.append(Path(fr"C:\ProgramData\{APP_NAME}\R\library"))
     candidates.append(Path(r"C:\ProgramData\LabiiaLex\R\library"))
+    # Linux/macOS: caminho XDG
+    if sys.platform != "win32":
+        xdg_data = (os.environ.get("XDG_DATA_HOME") or "").strip()
+        xdg_base = Path(xdg_data) if xdg_data else Path.home() / ".local" / "share"
+        candidates.append(xdg_base / APP_NAME / "R" / "library")
+        if sys.platform == "darwin":
+            candidates.append(Path.home() / "Library" / "Application Support" / APP_NAME / "R" / "library")
     return candidates
 
 
@@ -196,24 +203,39 @@ class RBridge:
         for env_name in ("LEXIANALYST_BUNDLED_R_HOME", "LEXIANALYST_R_HOME"):
             env_home = (os.environ.get(env_name) or "").strip()
             if env_home:
-                candidates.extend(
-                    [
-                        os.path.join(env_home, "bin", "Rscript.exe"),
-                        os.path.join(env_home, "bin", "x64", "Rscript.exe"),
-                    ]
-                )
+                # Adiciona candidatos para ambas as plataformas conforme SO
+                if sys.platform == "win32":
+                    candidates.extend(
+                        [
+                            os.path.join(env_home, "bin", "Rscript.exe"),
+                            os.path.join(env_home, "bin", "x64", "Rscript.exe"),
+                        ]
+                    )
+                else:
+                    candidates.append(os.path.join(env_home, "bin", "Rscript"))
 
         if getattr(sys, "frozen", False):
             exe_dir = Path(sys.executable).resolve().parent
-            candidates.extend(
-                [
-                    str(exe_dir / "resources" / "R" / "bin" / "Rscript.exe"),
-                    str(exe_dir / "_internal" / "resources" / "R" / "bin" / "Rscript.exe"),
-                ]
-            )
+            if sys.platform == "win32":
+                candidates.extend(
+                    [
+                        str(exe_dir / "resources" / "R" / "bin" / "Rscript.exe"),
+                        str(exe_dir / "_internal" / "resources" / "R" / "bin" / "Rscript.exe"),
+                    ]
+                )
+            else:
+                candidates.extend(
+                    [
+                        str(exe_dir / "resources" / "R" / "bin" / "Rscript"),
+                        str(exe_dir / "_internal" / "resources" / "R" / "bin" / "Rscript"),
+                    ]
+                )
         else:
             project_root = Path(__file__).resolve().parents[3]
-            candidates.append(str(project_root / "resources" / "R" / "bin" / "Rscript.exe"))
+            if sys.platform == "win32":
+                candidates.append(str(project_root / "resources" / "R" / "bin" / "Rscript.exe"))
+            else:
+                candidates.append(str(project_root / "resources" / "R" / "bin" / "Rscript"))
 
         for candidate in candidates:
             if os.path.exists(candidate) and self._test_rscript(candidate):

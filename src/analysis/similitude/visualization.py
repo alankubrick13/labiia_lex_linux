@@ -59,27 +59,53 @@ _LABEL_ADJUSTMENTS_NAME = "label_adjustments.json"
 
 def _find_rscript() -> Optional[Path]:
     """
-    Find Rscript.exe on the system.
+    Find Rscript on the system.
 
     Search order:
-    1. PATH (shutil.which)
-    2. C:\\Program Files\\R\\*\\bin\\Rscript.exe
-    3. C:\\Program Files (x86)\\R\\*\\bin\\Rscript.exe
+    1. PATH (shutil.which) — funciona em todos os SOs
+    2. Locais típicos Windows: C:\\Program Files\\R\\*\\bin\\Rscript.exe
+    3. Locais típicos Linux: /usr/lib/R, /usr/local/lib/R, /opt/R/*/
+    4. macOS: /Library/Frameworks/R.framework
     """
-    # 1. PATH
-    which_result = shutil.which("Rscript")
+    # 1. PATH — funciona em Linux, macOS e Windows
+    which_result = shutil.which("Rscript") or shutil.which("rscript")
     if which_result:
         return Path(which_result)
 
-    # 2-3. Standard install locations
-    for base in [Path(r"C:\Program Files\R"), Path(r"C:\Program Files (x86)\R")]:
-        if base.is_dir():
-            # Get newest R version
-            versions = sorted(base.iterdir(), reverse=True)
-            for ver_dir in versions:
-                rscript = ver_dir / "bin" / "Rscript.exe"
+    import sys
+    if sys.platform == "win32":
+        # 2. Locais padrão Windows
+        for base in [Path(r"C:\Program Files\R"), Path(r"C:\Program Files (x86)\R")]:
+            if base.is_dir():
+                versions = sorted(base.iterdir(), reverse=True)
+                for ver_dir in versions:
+                    rscript = ver_dir / "bin" / "Rscript.exe"
+                    if rscript.is_file():
+                        return rscript
+    elif sys.platform != "darwin":
+        # 3. Linux: locais típicos de instalação
+        linux_homes = [
+            Path("/usr/lib/R"),
+            Path("/usr/lib64/R"),
+            Path("/usr/local/lib/R"),
+            Path("/usr/local/lib64/R"),
+        ]
+        for home in linux_homes:
+            rscript = home / "bin" / "Rscript"
+            if rscript.is_file():
+                return rscript
+        # rig: /opt/R/R-x.y.z/
+        opt_r = Path("/opt/R")
+        if opt_r.is_dir():
+            for ver_dir in sorted(opt_r.iterdir(), reverse=True):
+                rscript = ver_dir / "bin" / "Rscript"
                 if rscript.is_file():
                     return rscript
+    else:
+        # 4. macOS: R.framework
+        fw_rscript = Path("/Library/Frameworks/R.framework/Versions/Current/Resources/bin/Rscript")
+        if fw_rscript.is_file():
+            return fw_rscript
 
     return None
 

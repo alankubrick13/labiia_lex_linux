@@ -243,28 +243,13 @@ class TrigramNetworkExtraAnalysis:
             self._plot_network_fallback(path, graph, params)
             return
 
-        rscript_paths = [
-            "Rscript",
-            r"C:\Program Files\R\R-4.5.1\bin\Rscript.exe",
-            r"C:\Program Files\R\R-4.4.0\bin\Rscript.exe",
-            r"C:\Program Files\R\R-4.3.0\bin\Rscript.exe",
-        ]
-        rscript_exe = None
-        for rpath in rscript_paths:
-            try:
-                res = subprocess.run(
-                    [rpath, "--version"],
-                    capture_output=True,
-                    timeout=5,
-                    **no_console_kwargs(),
-                )
-                if res.returncode == 0:
-                    rscript_exe = rpath
-                    break
-            except Exception:
-                continue
+        # Detectar Rscript via resolver multiplataforma
+        from ..core.r_runtime import RRuntimeResolver
 
-        if rscript_exe is None:
+        rscript_exe = None
+        try:
+            rscript_exe = str(RRuntimeResolver().resolve().rscript_path)
+        except Exception:
             self._logger.warning("Rscript não encontrado, usando matplotlib.")
             self._plot_network_fallback(path, graph, params)
             return

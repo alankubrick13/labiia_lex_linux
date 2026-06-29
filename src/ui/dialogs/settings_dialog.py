@@ -334,9 +334,17 @@ class SettingsDialog(ctk.CTkToplevel):
         self.nav_collapsed_var.set(bool(ui_cfg.get("nav_collapsed", False)))
 
     def _browse_r_path(self) -> None:
+        import sys
+        if sys.platform == "win32":
+            title = "Selecionar Rscript.exe"
+            filetypes = [("Executável", "*.exe"), ("Todos", "*.*")]
+        else:
+            # Linux/macOS: Rscript é um executável sem extensão
+            title = "Selecionar Rscript"
+            filetypes = [("Rscript", "Rscript"), ("Todos os arquivos", "*")]
         file_path = filedialog.askopenfilename(
-            title="Selecionar Rscript.exe",
-            filetypes=[("Executável", "*.exe"), ("Todos", "*.*")],
+            title=title,
+            filetypes=filetypes,
         )
         if file_path:
             self.r_path_entry.delete(0, "end")

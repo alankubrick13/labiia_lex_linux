@@ -115,16 +115,20 @@ def _resolve_java_executable() -> Tuple[str, str]:
     
     # First try bundled JRE with validation
     if bundled.exists():
-        # Verify critical JVM DLL exists (required for Java to function)
-        jvm_dll_candidates = [
-            bundled_jre_home / "bin" / "server" / "jvm.dll",
-            bundled_jre_home / "bin" / "client" / "jvm.dll",
-        ]
-        jvm_exists = any(dll.exists() for dll in jvm_dll_candidates)
-        
-        if jvm_exists:
+        if os.name == "nt":
+            # Windows: verificar presença da jvm.dll para garantir JRE funcional
+            jvm_dll_candidates = [
+                bundled_jre_home / "bin" / "server" / "jvm.dll",
+                bundled_jre_home / "bin" / "client" / "jvm.dll",
+            ]
+            jvm_exists = any(dll.exists() for dll in jvm_dll_candidates)
+            if jvm_exists:
+                return str(bundled), "bundled_jre17"
+            log.warning(f"Bundled JRE found but jvm.dll missing at {bundled_jre_home}")
+        else:
+            # Linux/macOS: se o executável existe, assume JRE funcional
+            # (libjvm.so é carregada dinamicamente, não precisamos verificar manualmente)
             return str(bundled), "bundled_jre17"
-        log.warning(f"Bundled JRE found but jvm.dll missing at {bundled_jre_home}")
     
     # Fallback to system Java
     system_java = shutil.which("java")
@@ -137,7 +141,7 @@ def _resolve_java_executable() -> Tuple[str, str]:
         "Java não encontrado para executar o layout ForceAtlas2.",
         f"JRE bundled: {bundled} - {'existe' if bundled.exists() else 'AUSENTE'}",
     ]
-    if bundled.exists():
+    if bundled.exists() and os.name == "nt":
         jvm_dll = bundled_jre_home / "bin" / "server" / "jvm.dll"
         if not jvm_dll.exists():
             error_parts.append(f"  Erro: jvm.dll não encontrada em {jvm_dll}")

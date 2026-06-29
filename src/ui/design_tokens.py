@@ -7,11 +7,77 @@ para mapas legacy (COLORS/FONTS/SIZES) usados no codigo atual.
 
 from __future__ import annotations
 
+import sys
 from dataclasses import dataclass
+from functools import lru_cache
 from typing import Dict, Mapping
 
 
 ThemeName = str
+
+
+@lru_cache(maxsize=1)
+def _ui_font_family() -> str:
+    """Retorna família de fonte principal compatível com o SO atual.
+
+    No Windows usa Segoe UI (nativa, ótima renderização).
+    No Linux usa fontes sans-serif disponíveis no sistema, em ordem de preferência.
+    No macOS usa SF Pro Display (nativa Apple).
+    """
+    if sys.platform == "win32":
+        return "Segoe UI"
+    elif sys.platform == "darwin":
+        return "SF Pro Display"
+    else:
+        # Linux: testa fontes na ordem de preferência
+        for candidate in ("Inter", "Noto Sans", "Ubuntu", "DejaVu Sans", "Liberation Sans", "FreeSans"):
+            if _font_available(candidate):
+                return candidate
+        return "TkDefaultFont"
+
+
+@lru_cache(maxsize=1)
+def _mono_font_family() -> str:
+    """Retorna fonte monospace compatível com o SO atual."""
+    if sys.platform == "win32":
+        return "Consolas"
+    elif sys.platform == "darwin":
+        return "Menlo"
+    else:
+        # Linux: testa fontes na ordem de preferência
+        for candidate in ("JetBrains Mono", "Fira Code", "Ubuntu Mono", "DejaVu Sans Mono", "Liberation Mono", "FreeMono"):
+            if _font_available(candidate):
+                return candidate
+        return "TkFixedFont"
+
+
+@lru_cache(maxsize=1)
+def _title_font_family() -> str:
+    """Fonte para títulos/display. No Windows usa Segoe UI Variable."""
+    if sys.platform == "win32":
+        return "Segoe UI Variable"
+    else:
+        return _ui_font_family()
+
+
+@lru_cache(maxsize=1)
+def _semibold_font_family() -> str:
+    """Fonte semibold para botões. No Windows usa Segoe UI Semibold."""
+    if sys.platform == "win32":
+        return "Segoe UI Semibold"
+    else:
+        return _ui_font_family()
+
+
+def _font_available(name: str) -> bool:
+    """Verifica se uma fonte está disponível via tkinter.font."""
+    try:
+        import tkinter.font as tkfont
+        # tkfont.families() requer display inicializado; em ambientes headless pode falhar
+        families = tkfont.families()
+        return name in families
+    except Exception:
+        return False
 
 
 @dataclass(frozen=True)
@@ -117,16 +183,16 @@ class DesignTokenRegistry:
         }
 
         self.typography: Dict[str, tuple] = {
-            "display": ("Segoe UI Variable", 30, "bold"),
-            "h1": ("Segoe UI Variable", 23, "bold"),
-            "h2": ("Segoe UI Variable", 18, "bold"),
-            "body": ("Segoe UI", 13),
-            "small": ("Segoe UI", 11),
-            "caption": ("Segoe UI", 9),
-            "menu": ("Segoe UI", 11),
-            "button": ("Segoe UI Semibold", 12),
-            "toolbar": ("Segoe UI", 13),
-            "mono": ("Consolas", 11),
+            "display": (_title_font_family(), 30, "bold"),
+            "h1": (_title_font_family(), 23, "bold"),
+            "h2": (_title_font_family(), 18, "bold"),
+            "body": (_ui_font_family(), 13),
+            "small": (_ui_font_family(), 11),
+            "caption": (_ui_font_family(), 9),
+            "menu": (_ui_font_family(), 11),
+            "button": (_semibold_font_family(), 12),
+            "toolbar": (_ui_font_family(), 13),
+            "mono": (_mono_font_family(), 11),
         }
 
         self.space: Dict[str, int] = {
@@ -219,8 +285,8 @@ class DesignTokenRegistry:
 
     def build_legacy_fonts(self) -> Dict[str, tuple]:
         return {
-            "title": ("Segoe UI", 14, "bold"),
-            "heading": ("Segoe UI", 12, "bold"),
+            "title": (_ui_font_family(), 14, "bold"),
+            "heading": (_ui_font_family(), 12, "bold"),
             "body": self.typography["body"],
             "small": self.typography["small"],
             "caption": self.typography["caption"],
