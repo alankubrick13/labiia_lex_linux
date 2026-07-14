@@ -1,0 +1,38 @@
+[
+  {
+    "entry_id": "707fd091d9dc4bb886305d8e5db1d597",
+    "analysis_type": "emotions",
+    "params": {
+      "analysis_type": "emotions",
+      "bar_chart": true,
+      "radar_chart": true,
+      "width": 600,
+      "height": 400,
+      "typegraph": "png"
+    },
+    "result_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_bar.png",
+    "timestamp": "2026-07-03T19:08:36.774933+00:00",
+    "metadata": {
+      "analysis_name": "Emoções (NRC)",
+      "has_visualization": true,
+      "report_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_report_20260703_190835.html",
+      "bar_graph_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_bar_2.png",
+      "radar_graph_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_radar.png",
+      "polarity_graph_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_polarity.png",
+      "stats_csv_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_stats.csv",
+      "words_csv_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_words.csv",
+      "words_summary_csv_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_words_summary.csv",
+      "graph_gallery": {
+        "Emoções (Barras)": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_bar_2.png",
+        "Emoções (Radar)": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_radar.png",
+        "Polaridade": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_polarity.png"
+      },
+      "table_gallery": {
+        "Emoções por texto": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_stats.csv",
+        "Resumo por emoção": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_words_summary.csv",
+        "Ocorrências por token": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_words.csv"
+      },
+      "run_manifest_path": "/home/alankubrick/Documentos/lab/labiia_lex/history/artifacts/707fd091d9dc4bb886305d8e5db1d597/emotions_manifest.json"
+    }
+  }
+]

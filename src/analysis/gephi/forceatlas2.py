@@ -106,7 +106,7 @@ class ForceAtlas2:
         for i, n in enumerate(nodes):
             try:
                 d = graph.degree(n, weight=weight_attr)
-            except:
+            except (TypeError, AttributeError):
                 d = graph.degree(n)
             degrees[i] = 1.0 + d
             
@@ -281,9 +281,10 @@ class ForceAtlas2:
             # But "swinging" requires F(t) and F(t-1).
             # Let's implement global swinging logic properly.
             
-            if not hasattr(self, '_prev_forces'):
-                self._prev_forces = np.zeros_like(forces)
-            
+            # _prev_forces is initialized before the loop (line ~149), so this
+            # check is always False and can be skipped safely.
+            # Kept as a no-op comment for clarity.
+
             # Compute Global Swing / Traction
             # swinging = mass * || F(t) - F(t-1) ||
             # traction = mass * || F(t) + F(t-1) || / 2

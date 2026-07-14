@@ -14,8 +14,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import List, Optional
 
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
 
 from src.core.chart_theme import (
@@ -41,7 +39,6 @@ from src.analysis.association_metrics import (
 from src.analysis.topic_modeling import LDAModelResult, train_lda
 from src.analysis.semantic_graph_exports import write_summary_json
 
-matplotlib.use("Agg")
 log = logging.getLogger(__name__)
 
 
@@ -190,6 +187,9 @@ class AssociativeHeatmapAnalysis:
 
     def _write_topic_heatmap(self, lda_result: LDAModelResult, path: Path) -> None:
         """Heatmap de correlacao de Pearson entre topicos LDA (matplotlib puro)."""
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
         import matplotlib.patches as mpatches
 
         doc_topic = lda_result.doc_topic_matrix
@@ -276,6 +276,10 @@ class AssociativeHeatmapAnalysis:
 
     def _write_clustered_heatmap(self, ppmi_sparse, vocab: List[str], path: Path) -> None:
         """Renderiza mapa de calor com dendrograma adjacente limitando a top 40 termos para legibilidade."""
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+
         sums = np.array(ppmi_sparse.sum(axis=0)).flatten()
         max_plot_terms = min(40, len(vocab))
         

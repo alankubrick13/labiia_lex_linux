@@ -4758,29 +4758,39 @@ Dúvidas? Consulte a documentação.
                     if len(token) > 2:
                         self.corpus.add_word(token, uce_id=uce.ident)
 
-        for raw_line in lines:
-            line = raw_line.strip()
-            if line.startswith('****'):
-                _flush_current_txt()
-                current_uci = self.corpus.add_uci(line)
-                log.debug("Nova UCI identificada: %s", line)
-                continue
+        conn = self.corpus._conn if self.corpus is not None else None
+        if conn is not None:
+            transaction = conn
+        else:
+            class DummyContext:
+                def __enter__(self): pass
+                def __exit__(self, exc_type, exc_val, exc_tb): pass
+            transaction = DummyContext()
 
-            if line.startswith("-*") and current_uci is not None:
-                _flush_current_txt()
-                para_counter += 1
-                current_uci.paras.append(line.split()[0])
-                continue
+        with transaction:
+            for raw_line in lines:
+                line = raw_line.strip()
+                if line.startswith('****'):
+                    _flush_current_txt()
+                    current_uci = self.corpus.add_uci(line)
+                    log.debug("Nova UCI identificada: %s", line)
+                    continue
 
-            if line and current_uci is not None:
-                current_txt_lines.append(line)
+                if line.startswith("-*") and current_uci is not None:
+                    _flush_current_txt()
+                    para_counter += 1
+                    current_uci.paras.append(line.split()[0])
+                    continue
 
-        _flush_current_txt()
+                if line and current_uci is not None:
+                    current_txt_lines.append(line)
 
-        if len(self.corpus.ucis) == 0:
-            current_uci = self.corpus.add_uci("**** *doc_1")
-            current_txt_lines = [line.strip() for line in lines if line.strip()]
             _flush_current_txt()
+
+            if len(self.corpus.ucis) == 0:
+                current_uci = self.corpus.add_uci("**** *doc_1")
+                current_txt_lines = [line.strip() for line in lines if line.strip()]
+                _flush_current_txt()
         log.info(
             "Construcao do corpus concluida: %s UCIs, %s UCEs, %s formas",
             self.corpus.getucinb(),
@@ -8197,7 +8207,7 @@ Dúvidas? Consulte a documentação.
                             try:
                                 cid = int(h.split("_")[1])
                                 class_col_map[idx] = cid
-                            except:
+                            except (ValueError, KeyError, IndexError):
                                 pass
                                 
                     if not class_col_map:
@@ -8212,7 +8222,7 @@ Dúvidas? Consulte a documentação.
                             if idx in class_col_map:
                                 try:
                                     row_vals[class_col_map[idx]] = float(val)
-                                except:
+                                except (ValueError, TypeError):
                                     row_vals[class_col_map[idx]] = 0.0
                         data[word] = row_vals
                 return data, class_col_map.values()
@@ -8256,7 +8266,7 @@ Dúvidas? Consulte a documentação.
             metadata = getattr(entry, "metadata", {}) or {}
             if isinstance(metadata, str):
                 try: metadata = json.loads(metadata)
-                except: metadata = {}
+                except (json.JSONDecodeError, ValueError, TypeError): metadata = {}
                 
             result.afc_graph_path = metadata.get("chd_afc_graph_path") or None
             result.profile_afc_path = (

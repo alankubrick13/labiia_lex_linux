@@ -462,5 +462,5 @@ class RVisualizer:
         """Destructor - cleanup on deletion."""
         try:
             self.cleanup()
-        except:
+        except Exception:
             pass

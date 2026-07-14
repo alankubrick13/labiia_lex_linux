@@ -49,15 +49,11 @@
       "min_visible_words": 120,
       "nb_per_class": 80,
       "max_words": 600,
-      "nb_classes": 5,
+      "analysis_type": "chd",
+      "parity_profile": "official_0_8a7",
+      "render_profile": "native",
       "min_uce": 0,
-      "prefer_portuguese_br": false,
-      "typegraph": "png",
-      "width": 1400,
-      "height": 1000,
       "dendro_type": "profile",
-      "type_dendro": "phylogram",
-      "nb_words": 60,
       "bw": false,
       "lab": null,
       "direction": "downwards"
@@ -335,9 +331,9 @@
       "analysis_type": "keyness_extra"
     },
     "bigram_network_extra": {
-      "analysis_type": "bigram_network_extra",
       "min_bigram_freq": 6,
       "top_edges": 80,
+      "analysis_type": "bigram_network_extra",
       "typegraph": "png"
     },
     "word_tree_extra": {
@@ -352,13 +348,15 @@
       "typegraph": "png"
     },
     "wordfish_extra": {
-      "analysis_type": "wordfish_extra",
       "group_variable": "civil",
       "min_freq": 3,
       "max_features": 1200,
+      "analysis_type": "wordfish_extra",
       "typegraph": "png"
     },
     "xray_extra": {
+      "patterns": "",
+      "max_docs": 200,
       "analysis_type": "xray_extra",
       "terms": "civil",
       "active_only": true,
@@ -534,8 +532,9 @@
       "analysis_type": "emotions",
       "bar_chart": true,
       "radar_chart": true,
-      "width": 500,
-      "height": 300
+      "width": 600,
+      "height": 400,
+      "typegraph": "png"
     },
     "rake": {
       "min_freq": 2,
@@ -569,6 +568,7 @@
       "use_lemmas": true
     },
     "thematic_chd": {
+      "analysis_type": "thematic_chd",
       "n_topics": 5,
       "min_freq": 2,
       "max_features": 2000
@@ -619,15 +619,11 @@
       "min_visible_words": 120,
       "nb_per_class": 80,
       "max_words": 600,
-      "nb_classes": 5,
+      "analysis_type": "chd",
+      "parity_profile": "official_0_8a7",
+      "render_profile": "native",
       "min_uce": 0,
-      "prefer_portuguese_br": false,
-      "typegraph": "png",
-      "width": 1400,
-      "height": 1000,
       "dendro_type": "profile",
-      "type_dendro": "phylogram",
-      "nb_words": 60,
       "bw": false,
       "lab": null,
       "direction": "downwards"
@@ -1054,8 +1050,9 @@
       "analysis_type": "emotions",
       "bar_chart": true,
       "radar_chart": true,
-      "width": 500,
-      "height": 300
+      "width": 600,
+      "height": 400,
+      "typegraph": "png"
     },
     "labbe": {
       "analysis_type": "labbe",
@@ -1099,6 +1096,7 @@
       "use_lemmas": true
     },
     "thematic_chd": {
+      "analysis_type": "thematic_chd",
       "n_topics": 5,
       "min_freq": 2,
       "max_features": 2000
@@ -1128,5 +1126,5 @@
   "migrations": {
     "wordcloud_v2_applied": true
   },
-  "show_startup_about": true
+  "show_startup_about": false
 }

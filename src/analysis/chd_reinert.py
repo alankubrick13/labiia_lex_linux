@@ -2736,7 +2736,8 @@ if (file.exists(matrix_file)) {{
                         if len(row) >= 2:
                             try:
                                 inertia.append(float(row[1]))
-                            except: pass
+                            except (ValueError, TypeError):
+                                pass
             except Exception as e:
                 self._logger.warning(f"Failed to read inertia: {e}")
         # Pad inertia to at least 2 values for 2D axis labels (2-class AFC yields nd=1)

@@ -13,14 +13,12 @@ from __future__ import annotations
 import math
 import textwrap
 from pathlib import Path
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
 
-import matplotlib
-import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
+if TYPE_CHECKING:
+    from matplotlib.axes import Axes
+    from matplotlib.figure import Figure
+
 
 
 # ─── Conversao HCL → sRGB ─────────────────────────────────────────────────────
@@ -123,6 +121,7 @@ def apply_theme() -> None:
     Configura matplotlib.rcParams para o tema ggplot2-minimal.
     Idempotente — pode ser chamado multiplas vezes sem efeito colateral.
     """
+    import matplotlib.pyplot as plt
     plt.rcParams.update({
         "figure.facecolor":      _THEME["bg_figure"],
         "axes.facecolor":        _THEME["bg_axes"],
@@ -182,6 +181,7 @@ def create_figure(
     Returns:
         (fig, ax_chart, ax_legend) — ax_legend e None se with_legend_panel=False.
     """
+    import matplotlib.pyplot as plt
     apply_theme()
     if with_legend_panel:
         leg_w = _legend_width_for(legend_entries or [("T1", "placeholder_longo")])
@@ -295,6 +295,7 @@ def draw_legend_panel(
     - Texto wrappado por palavra se o painel for estreito.
     - Separador sutil abaixo do titulo.
     """
+    import matplotlib.patches as mpatches
     n = len(entries)
     if n == 0:
         return
@@ -485,6 +486,7 @@ def crop_white_borders(path: Path, pad_px: int = 10, white_threshold: int = 245)
 
 def save_figure(fig: Figure, path: Path, dpi: int = 120) -> None:
     """Salva figura com configuracoes consistentes e fecha-a."""
+    import matplotlib.pyplot as plt
     fig.savefig(path, bbox_inches="tight", dpi=dpi,
                 facecolor=fig.get_facecolor())
     plt.close(fig)

@@ -89,7 +89,7 @@ class GephiForceAtlas2:
             # Let's use weighted degree if available.
             try:
                 d = graph.degree(node, weight=weight_attr)
-            except:
+            except (TypeError, AttributeError):
                 d = graph.degree(node)
             degrees[i] = d + 1.0
 
@@ -383,7 +383,7 @@ class GephiForceAtlas2:
         for node in nodes:
             try:
                 deg = graph.degree(node, weight=weight_attr)
-            except:
+            except (TypeError, AttributeError):
                 deg = graph.degree(node)
                 
             # Mapping from degree to "Radius" in the simulation space.
@@ -471,7 +471,7 @@ class GephiForceAtlas2:
             # PROOF OF LIFE: Show the engine is running
             if it % 50 == 0:
                 spread = np.max(positions) - np.min(positions)
-                print(f"   [ForceAtlas2] Iteration {it}/{iterations} | Graph Spread: {spread:.2f} (Expanding...)")
+                log.debug("[ForceAtlas2] Iteration %d/%d | Graph Spread: %.2f", it, iterations, spread)
 
             disp = np.zeros((n_nodes, 2))
             
@@ -552,10 +552,10 @@ class GephiForceAtlas2:
                 # Base factor (Weight * Function(Dist))
                 if self.lin_log_mode:
                     base_force = ew * np.log(1.0 + dist_e)
-                    print(f"DEBUG: LinLog ON. Dist={dist_e[0]:.2f}, Force={base_force[0]:.2f}")
+                    log.debug("LinLog ON. Dist=%.2f, Force=%.2f", dist_e[0] if len(dist_e) else 0, base_force[0] if len(base_force) else 0)
                 else:
                     base_force = ew * dist_e
-                    print(f"DEBUG: LinLog OFF. Dist={dist_e[0]:.2f}, Force={base_force[0]:.2f}")
+                    log.debug("LinLog OFF. Dist=%.2f, Force=%.2f", dist_e[0] if len(dist_e) else 0, base_force[0] if len(base_force) else 0)
 
                 # We need separate forces for U and V if outbound_attraction is ON
                 # because it depends on local degree.
@@ -590,8 +590,11 @@ class GephiForceAtlas2:
             # ...
             
             if self.verbose:
-                 print(f"DEBUG: MaxDisp after repulsion/attraction/gravity: {np.max(np.linalg.norm(disp, axis=1)):.4f}")
-                 print(f"DEBUG: Disp Vector for Node 1: {disp[1]}")
+                log.debug(
+                    "MaxDisp after repulsion/attraction/gravity: %.4f | Disp[1]: %s",
+                    np.max(np.linalg.norm(disp, axis=1)),
+                    disp[1] if len(disp) > 1 else [],
+                )
 
             dist_c = np.linalg.norm(positions, axis=1)
             # Vector = F * (-pos/dist) = - g * deg * pos

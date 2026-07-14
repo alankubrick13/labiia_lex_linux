@@ -251,46 +251,79 @@ class CorpusCleaner:
         # 3. Substitui caracteres proibidos
         texto = self._substituir_caracteres_proibidos(texto)
         
-        # 4. Remove asteriscos do texto (exceto linhas protegidas)
-        texto = self._remover_asteriscos_texto(texto)
+        # 4 e 6. Remove asteriscos e processa números (Loop consolidado pré-compostos)
+        linhas = texto.split('\n')
+        remover_num = self.remover_numeros
+        for i, linha in enumerate(linhas):
+            if 'LINHA_CMD_INICIO' not in linha and 'QUATRO_AST_MARCADOR' not in linha:
+                if '*' in linha:
+                    linha = linha.replace('*', '')
+                if remover_num:
+                    linha = re.sub(r'\d+', '', linha)
+                linhas[i] = linha
+        texto = '\n'.join(linhas)
         
         # 5. Processa hífens
         texto = self._processar_hifen(texto)
         
-        # 6. Processa números
-        texto = self._processar_numeros(texto)
-        
         # 7. Substitui expressões compostas
         texto = self._substituir_expressoes_compostas(texto)
         
-        # 8. Restaura linhas de comando
+        # 8. Restaura asteriscos nas linhas de comando
         texto = self._restaurar_asteriscos(texto)
         
-        # 9. Valida linhas de comando
-        texto = self._validar_linhas_comando(texto)
+        # 9, 10, 10.1, 11, 12. Validação, remoção de acentos, conversão de caixa e normalização (Loop consolidado pós-restauração)
+        linhas = texto.split('\n')
+        resultado = []
+        remover_ac = self.remover_acentos
+        conv_minusculas = self.converter_minusculas
         
-        # 10. Remove acentos das variáveis
-        texto = self._remover_acentos_variaveis(texto)
-        
-        # 10.1 Remove acentos do texto completo se configurado
-        if self.remover_acentos:
-            texto = self._remover_acentos_texto(texto)
-
-        # 11. Converte para minúsculas se configurado
-        if self.converter_minusculas:
-            texto = self._converter_para_minusculas(texto)
+        for linha in linhas:
+            linha_strip = linha.strip()
+            if not linha_strip:
+                resultado.append('')
+                continue
+            
+            # Verifica se é linha de comando
+            if linha_strip.startswith('****'):
+                # 9. Valida linha de comando
+                linha_corrigida = re.sub(r'^\*{4}\s*', '**** ', linha_strip)
+                partes = linha_corrigida.split()
+                partes_corrigidas = [partes[0]]
+                for parte in partes[1:]:
+                    if parte.startswith('*'):
+                        partes_corrigidas.append(self._sanitizar_variavel_iramuteq(parte))
+                    else:
+                        partes_corrigidas.append(parte)
+                linha_processada = ' '.join(partes_corrigidas)
+                
+                # 10. Remove acentos das variáveis
+                linha_normalizada = unicodedata.normalize('NFD', linha_processada)
+                linha_processada = ''.join(c for c in linha_normalizada if unicodedata.category(c) != 'Mn')
+            else:
+                linha_processada = linha
+                
+                # 11. Converte para minúsculas se configurado
+                if conv_minusculas:
+                    linha_processada = linha_processada.lower()
+            
+            # 10.1 Remove acentos do texto completo se configurado
+            if remover_ac:
+                linha_normalizada = unicodedata.normalize('NFD', linha_processada)
+                linha_processada = ''.join(c for c in linha_normalizada if unicodedata.category(c) != 'Mn')
+                
+            # 12. Normaliza espaços
+            linha_processada = re.sub(r' +', ' ', linha_processada).strip()
+            resultado.append(linha_processada)
+            
+        texto = '\n'.join(resultado)
         
         # 11.1 Segundo passe de compostos após normalizações opcionais.
-        # Garante união mesmo quando o usuário seleciona expressão sem acento
-        # e também marca "remover acentos".
-        if self.remover_acentos or self.converter_minusculas:
+        if remover_ac or conv_minusculas:
             texto = self._substituir_expressoes_compostas(
                 texto,
                 expressoes=self.expressoes_compostas_normalizadas,
             )
-        
-        # 12. Normaliza espaços
-        texto = self._normalizar_espacos(texto)
         
         # 13. Normaliza quebras de linha
         texto = self._normalizar_quebras_linha(texto)

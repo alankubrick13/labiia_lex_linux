@@ -110,7 +110,7 @@ class XLSXImporter(BaseImporter):
         warnings: List[str] = []
         
         try:
-            workbook = self._openpyxl.load_workbook(path, data_only=True)
+            workbook = self._openpyxl.load_workbook(path, read_only=True, data_only=True)
         except Exception as e:
             error_msg = str(e).lower()
             

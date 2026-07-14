@@ -1072,7 +1072,7 @@ class TextProcessor:
             # Data rows
             for i, row in enumerate(dense):
                 row_label = row_labels[i] if row_labels and i < len(row_labels) else str(i)
-                writer.writerow([row_label] + list(row))
+                writer.writerow([row_label] + row.tolist())
     
     def _export_vocabulary(self, filepath: Path, 
                            include_freq: bool = False) -> None:

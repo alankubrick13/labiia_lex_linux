@@ -13,7 +13,6 @@ import os
 import sys
 import subprocess
 import json
-import glob
 import tempfile
 from pathlib import Path
 from typing import Optional, List, Dict, Tuple, Any
@@ -322,7 +321,7 @@ class RBridge:
         finally:
             try:
                 os.unlink(temp_script)
-            except:
+            except OSError:
                 pass
 
     def check_packages(self, packages: Optional[List[str]] = None) -> Dict[str, bool]:
@@ -582,7 +581,7 @@ for (pkg in packages) {{
             if args_file:
                 try:
                     os.unlink(args_file)
-                except:
+                except OSError:
                     pass
 
     def get_r_version(self) -> Optional[str]:
