@@ -1,86 +1,60 @@
-# labiia_lex
+# labiia_lex_linux
 
 [![Version](https://img.shields.io/badge/version-1.0.9-blue.svg)](VERSION)
-[![Python](https://img.shields.io/badge/python-3.9+-green.svg)](https://python.org)
+[![Python](https://img.shields.io/badge/python-3.11+-green.svg)](https://python.org)
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](LICENSE)
 
-`labiia_lex` e um software de analise textual computacional para Windows,
-desenvolvido em Python, R e CustomTkinter. O foco da versao 1.0.9 e estabilidade
-na importacao, preparacao opcional do corpus e execucao de analises textuais com
-fluxos visuais acessiveis para usuarios nao tecnicos.
+O `labiia_lex_linux` é um software de análise textual computacional adaptado para **Linux** (baseado no fork de `cardososampaio/labiia_lex`), desenvolvido em Python, R e CustomTkinter. O foco do projeto é a estabilidade na importação, preparação opcional do corpus e execução de análises textuais com fluxos visuais acessíveis para usuários não técnicos.
 
 ## O que o software faz
 
 - Importa corpus em `TXT`, `PDF`, `DOCX`, `XLSX`, `CSV` e `ZIP`
-- Oferece preparacao opcional do corpus com expressoes compostas e entidades leves
-- Executa estatisticas, CHD, similitude, AFC, nuvem, mapa tematico e analises auxiliares
+- Oferece preparação opcional do corpus com expressões compostas e entidades leves
+- Executa estatísticas, CHD, similitude, AFC, nuvem de palavras, mapa temático e análises auxiliares
 - Empacota ajuda local, tutorial guiado e recursos de interface para uso offline
-- Usa o R instalado na maquina e pode reparar pacotes R sem exigir terminal
+- Usa a instalação do R e do Java do sistema para processamentos pesados e renderização de grafos
 
-## Estado deste repositorio publico
+## Requisitos do Sistema (Linux)
 
-Este repositorio publica o **codigo-fonte** do `labiia_lex`, a documentacao e os
-scripts de build.
+- **Python**: Versão 3.11 ou superior com suporte a Tkinter
+- **R**: Versão 4.0 ou superior (com `r-base-dev` para compilação de pacotes R)
+- **Java (JRE)**: Versão 11 ou superior (necessário para o layout ForceAtlas2 do Gephi)
+- **Bibliotecas do Sistema**: `libxml2`, `libssl`, `libcurl`, `libfontconfig`, `libcairo`
+- **Git** e **Git LFS** (para arquivos binários e de dados grandes)
 
-No momento, **nao ha arquivo `.exe` disponibilizado neste repositorio**. A pasta
-`installer/` permanece versionada para que terceiros possam estudar, auditar e
-reproduzir o processo de empacotamento.
+## Clonar o código-fonte
 
-## Requisitos
+Certifique-se de ter o Git LFS instalado antes de clonar:
 
-### Uso como aplicativo instalado no Windows
-
-- Windows 10/11 64-bit
-- R ja instalado no computador
-- Internet durante instalacao ou reparo de pacotes R
-
-O instalador do projeto foi desenhado para empacotar Python, bibliotecas Python,
-Java/JRE, arquivos de ajuda, exemplos e demais recursos da aplicacao. Ele detecta
-automaticamente a versao mais nova do R presente na maquina e usa essa instalacao.
-
-### Desenvolvimento
-
-- Python 3.9 ou superior
-- Git
-- Git LFS
-- R instalado no Windows
-
-## Clonar o codigo-fonte
-
-```powershell
+```bash
 git lfs install
-git clone https://github.com/cardososampaio/labiia_lex.git
-cd labiia_lex
+git clone https://github.com/alankubrick13/labiia_lex_linux.git
+cd labiia_lex_linux
 git lfs pull
 ```
 
-## Preparar ambiente de desenvolvimento
+## Preparar ambiente e instalar no Linux
 
-O caminho recomendado e usar o bootstrap do proprio repositorio:
+O repositório inclui um script instalador automático (`install.sh`) que gerencia a instalação de dependências de sistema (via `apt`, `dnf` ou `pacman`), configura o ambiente virtual Python e cria o atalho no menu de aplicativos do sistema:
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\bootstrap_dev_env.ps1 -VenvName venv -RunSmoke
+```bash
+bash install.sh
 ```
 
-Equivalente manual:
+Em seguida, instale ou repare os pacotes R necessários para as análises:
 
-```powershell
-py -3 -m venv venv
-.\venv\Scripts\python.exe -m pip install --upgrade pip
-.\venv\Scripts\python.exe -m pip install -r requirements.txt
+```bash
+source venv/bin/activate
+python main.py --repair-r-packages
 ```
 
 ## Executar o software
 
-```powershell
-.\venv\Scripts\python.exe main.py
-```
+Após a conclusão da instalação, você pode abrir o software diretamente pelo menu de aplicativos pesquisando por **LabiiaLex**, ou via terminal:
 
-Tambem e possivel usar:
-
-```powershell
-.\LabiiaLex.pyw
-.\LabiiaLex.vbs
+```bash
+source venv/bin/activate
+python main.py
 ```
 
 ## Uso rapido
@@ -125,29 +99,19 @@ labiia_lex/
 └── scripts/
 ```
 
-## Verificacoes uteis
+## Verificações úteis
 
-```powershell
-$env:PYTHONPATH=(Get-Location).Path
+```bash
+export PYTHONPATH=$(pwd)
 
-py -3 -m py_compile main.py src\ui\main_window.py src\core\version.py
-py -3 -m pytest -q tests
-py -3 main.py --self-test --json-out tmp_self_test_public.json
+python3 -m py_compile main.py src/ui/main_window.py src/core/version.py
+python3 -m pytest -q tests
+python3 main.py --self-test --json-out tmp_self_test_public.json
 ```
 
-## Instalador
+## Instalador Linux e Integração
 
-Os arquivos do instalador ficam em `installer/` e os scripts de build em
-`scripts/`. Isso permite que outras pessoas reproduzam localmente o processo de
-empacotamento do aplicativo.
-
-Saida esperada do build local:
-
-```text
-installer\dist\labiia_lex-Setup-x64-<versao>.exe
-```
-
-Esse artefato **nao e publicado neste repositorio** nesta etapa.
+O script `install.sh` cria um arquivo de entrada de desktop `.desktop` no padrão do Linux (localizado em `~/.local/share/applications/labiialex.desktop`), integrando o atalho do aplicativo ao menu do sistema operacional. Para quem estuda empacotamento, a estrutura original do instalador Windows Inno Setup é mantida no diretório `installer/`.
 
 ## Documentacao
 
