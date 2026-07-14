@@ -94,11 +94,21 @@ assemble_appdir() {
 
     # Copia ícone (cria placeholder se não existir)
     local icon_src="$PROJECT_ROOT/resources/icons/labiia_lex_256.png"
+    if [[ ! -f "$icon_src" && -f "$PROJECT_ROOT/assets/icon.png" ]]; then
+        icon_src="$PROJECT_ROOT/assets/icon.png"
+    fi
+
     if [[ -f "$icon_src" ]]; then
         cp "$icon_src" "$APPDIR/usr/share/icons/hicolor/256x256/apps/$APP_NAME.png"
         cp "$icon_src" "$APPDIR/$APP_NAME.png"
     else
-        warn "Ícone não encontrado em $icon_src. Usando ícone genérico."
+        info "Gerando ícone placeholder..."
+        "$VENV_DIR/bin/python" -c "
+from PIL import Image
+img = Image.new('RGB', (256, 256), color = (73, 109, 137))
+img.save('$APPDIR/$APP_NAME.png')
+"
+        cp "$APPDIR/$APP_NAME.png" "$APPDIR/usr/share/icons/hicolor/256x256/apps/$APP_NAME.png"
     fi
 
     # .desktop file

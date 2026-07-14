@@ -22,6 +22,24 @@ O `labiia_lex_linux` é um software de análise textual computacional adaptado p
 - **Bibliotecas do Sistema**: `libxml2`, `libssl`, `libcurl`, `libfontconfig`, `libcairo`
 - **Git** e **Git LFS** (para arquivos binários e de dados grandes)
 
+## Uso Simplificado via AppImage (Recomendado)
+
+Para facilitar a execução sem precisar clonar o código-fonte ou configurar um ambiente virtual Python manualmente, disponibilizamos uma versão portátil em formato **AppImage**:
+
+1. Baixe o AppImage diretamente da nossa página de releases:
+   👉 **[Baixar LabiiaLex v1.0.9 AppImage](https://github.com/alankubrick13/labiia_lex_linux/releases/download/v1.0.9-linux/labiia_lex-1.0.9-x86_64.AppImage)**
+2. Certifique-se de que as dependências estatísticas de sistema (**R** e **Java**) estão instaladas no seu computador.
+3. Dê permissão de execução ao arquivo:
+   ```bash
+   chmod +x labiia_lex-1.0.9-x86_64.AppImage
+   ```
+4. Execute o aplicativo:
+   ```bash
+   ./labiia_lex-1.0.9-x86_64.AppImage
+   ```
+
+*(Nota: Caso queira gerar o pacote AppImage manualmente a partir do código-fonte, utilize o script `bash scripts/build_appimage.sh` após a instalação padrão).*
+
 ## Clonar o código-fonte
 
 Certifique-se de ter o Git LFS instalado antes de clonar:
